@@ -1,0 +1,124 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block 'cssBlock' %}{% endblock 'cssBlock' %}
+
+    <!-- styles -->
+    <link rel="stylesheet" as="preload" href="{% static "dist/index.css" %}">
+
+    <!-- extra -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <title>
+        {% block 'title' %}{% endblock 'title' %}
+    </title>
+
+</head>
+
+<body>
+    <!-- nav start -->
+    <nav class="navigation">
+        <div class="container">
+            <div class="navigation-box">
+                <a href="{% url 'home' %}" class="logo">
+                    <img src="{% static "images/icons/logo.svg" %}" alt="" class="logo-image">
+                </a>
+                <div class="navigation-links">
+                    <a href="/profile.html" class="link">Profile</a>
+                    <a href="/admin.html" class="link">Admin</a>
+                    <a href="/addProduct.html" class="link">Add Product</a>
+                </div>
+            </div>
+            <div class="navigation-box">
+                <a href="/cart.html" class="link cart-link">Cart <img src=".{% static "images/icons/cart.svg" %}" alt=""></a>
+                <a href="{% url 'login' %}" class="link sign-in">
+                    Sign In <img src=".{% static "images/icons/right-arrow" %}.svg" alt="arrow" class="icon">
+                </a>
+            </div>
+            <button class="hamb-btn">
+                <div class="divider"></div>
+                <div class="divider"></div>
+            </button>
+        </div>
+    </nav>
+
+    <!-- nav end -->
+
+    <!-- hamburgar start -->
+    <div class="hamb-menu" style="display: none">
+        <ul class="hamb-list">
+            <a href="/profile.html" class="hamb-link">Profile</a>
+            <a href="/admin.html" class="hamb-link">Admin</a>
+            <a href="/cart.html" class="link cart-link">Cart <img src=".{% static "images/icons/cart.svg" %}" alt=""></a>
+            <a href="{% static "login" %}" class="hamb-link sign-in">
+                Sign In <img src=".{% static "images/icons/right-arrow" %}.svg" alt="arrow" class="icon">
+            </a>
+        </ul>
+    </div>
+
+    <!-- hamburgar end -->
+    <!-- wrapper start -->
+    <div class="wrapper" data-page="home">
+        <!-- scroller start -->
+        <div class="scroll-container">
+            <!-- content start -->
+
+            {% block 'body' %}
+            {% endblock 'body' %}
+
+            <!-- footer start -->
+            <footer class="footer">
+                <div class="container">
+                    <div class="footer-content">
+                        <div class="footer-box">
+                            <a href="{% url 'home' %}" class="logo">
+                                <img src=".{% static "images/icons/logo.svg" %}" alt="logo" class="logo-image">
+                            </a>
+                            <div class="footer-box-content">
+                                <p class="paragraph-md"><a href="tel:+01 292 4411" class="animated-link">T: 01 292
+                                        4411</a></p>
+                                <p class="paragraph-md"><a href="mailto:info@newkey.ie" class="animated-link">E:
+                                        info@newkey.ie</a></p>
+                                <p class="paragraph-sm">Unit 29, Southgate, Dublin road, <br />
+                                    Drogheda, Co.Meath</p>
+                            </div>
+                        </div>
+                        <div class="footer-box-2">
+                            <div class="footer-list">
+                                <a href="/about.html" class="link">About</a>
+                                <a href="/projects.html" class="link">Projects</a>
+                                <a href="/investor.html" class="link">Investing</a>
+                                <a href="/contact.html" class="link">Contact</a>
+                            </div>
+                            <div class="footer-list">
+                                <a href="{% url 'login' %}" class="link sign-in">Sign In <img
+                                        src=".{% static "images/icons/right-arrow" %}.svg" alt="arrow" class="icon"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-panel">
+                        <p class="paragraph-xs">
+                            copyright 2023 NewKey Homes | All rights Reserved | <a href="/privacy.html"
+                                class="animated-link">Privacy&nbsp;Policy</a>
+                        </p>
+                        <p class="paragraph-xs">
+                            <a href="{% url 'home' %}" class="animated-link">Crafted</a>    
+                        </p>
+                    </div>
+                </div>
+            </footer>
+            <!-- footer end -->
+
+            <!-- content end -->
+        </div>
+        <!-- scroller end -->
+    </div>
+    <!-- wrapper end -->
+    {% block 'jsBlock' %}{% endblock 'jsBlock' %}
+</body>
+
+</html>

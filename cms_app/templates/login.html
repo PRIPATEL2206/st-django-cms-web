@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- styles -->
+    <link rel="stylesheet" as="preload" href="{% static "dist/index.css" %}">
+
+    <!-- extra -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
+</head>
+
+<body>
+    <!-- wrapper start -->
+    <div class="wrapper" data-page="Login">
+        <!-- scroller start -->
+        <div class="scroll-container">
+            <!-- content start -->
+
+            <div class="cta">
+                <div class="cta-wrapper">
+                    <h1 class="title-3xl">Sign-In</h1>
+                    <form action="{% url 'login' %}" method="post">
+                        {% csrf_token %}
+                        <div class="input-container">
+                            <label for="email" class="label">Email Address*</label>
+                            <input type="email" id="email" name="email" required />
+                        </div>
+                        <div class="input-container">
+                            <label for="password" class="label">Password*</label>
+                            <input type="password" id="password" name="password" required />
+                            <a href="#" class="forgot">Forgot your password?</a>
+                        </div>
+                        <button class="link-bg">Login</button>
+                    </form>
+                    <a href="{% url 'register' %}" class="link-bg inverted">Have not registered alredy? Register</a>
+                    <a class="link" href="{% url 'home' %}">Back to Site</a>
+                </div>
+            </div>
+
+            <!-- content end -->
+        </div>
+        <!-- scroller end -->
+    </div>
+    <!-- wrapper end -->
+
+
+    <!-- external scripts (cdns) -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/textify.js@3.0.1/dist/Textify.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
+        integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- inner scripts -->
+    <script src="{% static "js/global.js" %}"></script>
+</body>
+
+</html>

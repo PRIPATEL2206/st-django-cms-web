@@ -1,31 +1,48 @@
 import os
 from typing import Any
+from uuid import uuid1
 from django.db import models
 from django.contrib.auth.models import User
 
-def upload_path(instance,filename) -> str:
-    return os.path.join('image/',filename)
+ROLES={
+    1:"customer",
+    2:"employee",
+    3:"master"
+}
+
+BASE_BALANCE=10000
+
+def upload_user_path(instance,filename) -> str:
+    print(instance)
+    return os.path.join('user_images/',uuid1().hex+filename)
+
+def upload_product_path(instance,filename) -> str:
+    return os.path.join('product_images/',uuid1().hex+filename)
 
 class CMSUser(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
+    email=models.EmailField()
     address=models.TextField(default="")
     role=models.CharField(default="Customer",max_length=30)
     role_ID=models.PositiveSmallIntegerField(default=1,)
     contect_number=models.CharField(max_length=20)
-    balance=models.BigIntegerField(default=10000)
-    profile_img=models.ImageField(upload_to=upload_path,null=True)
+    balance=models.BigIntegerField(default=BASE_BALANCE)
+    profile_img=models.ImageField(upload_to=upload_user_path,null=True)
 
 
 
 class Product(models.Model):
     # pID=models.AutoField(auto_created=True,unique=True)
     name=models.CharField(max_length=100)
-    img=models.ImageField(upload_to=upload_path,null=True)
+    img=models.ImageField(upload_to=upload_product_path,null=True)
     prize=models.PositiveIntegerField(default=0)
     discription=models.TextField(default="")
     quntity=models.PositiveSmallIntegerField(default=0)
     added_datetime=models.DateTimeField(auto_now_add=True)
 
+    def delete(self, using: Any = ..., keep_parents: bool = ...) -> tuple[int, dict[str, int]]:
+        self.img.storage.delete(self.img.name)
+        return super().delete(using, keep_parents)
 class Cart(models.Model):
     # cart_ID=models.AutoField(auto_created=True,unique=True)
     owner=models.ForeignKey(CMSUser,on_delete=models.DO_NOTHING)

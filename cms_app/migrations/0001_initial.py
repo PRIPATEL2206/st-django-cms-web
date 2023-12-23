@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
                 ('role_ID', models.PositiveSmallIntegerField(default=1)),
                 ('contect_number', models.CharField(max_length=20)),
                 ('balance', models.BigIntegerField(default=10000)),
-                ('profile_img', models.ImageField(null=True, upload_to=cms_app.models.upload_path)),
+                ('profile_img', models.ImageField(null=True, upload_to=cms_app.models.upload_user_path)),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
@@ -43,7 +43,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=100)),
-                ('img', models.ImageField(null=True, upload_to=cms_app.models.upload_path)),
+                ('img', models.ImageField(null=True, upload_to=cms_app.models.upload_product_path)),
                 ('prize', models.PositiveIntegerField(default=0)),
                 ('discription', models.TextField(default='')),
                 ('quntity', models.PositiveSmallIntegerField(default=0)),

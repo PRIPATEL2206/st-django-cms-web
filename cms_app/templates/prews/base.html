@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'basestyle.css' %}">
+    {% block 'cssBlock' %}{% endblock 'cssBlock' %}
+    <title>
+    {% block 'title' %}{% endblock 'title' %}
+    </title>
+</head>
+<body>
+    {% comment %} navbar start {% endcomment %}
+    <div class="container">
+        <div class="navigation-box">
+            <a href="/" class="logo">
+                <img src="{% static "images/icons/logo.svg" %}" alt="" class="logo-image">
+            </a>
+            <div class="navigation-links">
+                <a href="/profile" class="link">Profile</a>
+                <a href="/admin" class="link">Admin</a>
+            </div>
+        </div>
+        <div class="navigation-box">
+            <a href="/cart" class="link cart-link">Cart <img src="./assets/images/icons/cart.svg" alt=""></a>
+            <a href="/login" class="link sign-in">
+                Sign In <img src="{% static "images/icons/right-arrow.svg" %}" alt="arrow" class="icon">
+            </a>
+        </div>
+        <button class="hamb-btn">
+            <div class="divider"></div>
+            <div class="divider"></div>
+        </button>
+    </div>
+    {% comment %} nevbar end {% endcomment %}
+    {% include 'header.html' %}
+    {% block 'body' %}
+      
+    {% endblock 'body' %}
+
+    {% comment %} footer start {% endcomment %}
+    <ul class="hamb-list">
+        <a href="/profile" class="hamb-link">Profile</a>
+        <a href="/admin" class="hamb-link">Admin</a>
+        <a href="/cart" class="link cart-link">Cart <img src="{% static "images/icons/cart.svg" %}" alt=""></a>
+        <a href="/login" class="hamb-link sign-in">
+            Sign In <img src="{% static "images/icons/right-arrow.svg" %}" alt="arrow" class="icon">
+        </a>
+    </ul>
+    {% comment %} footer end {% endcomment %}
+{% block 'jsBlock' %}{% endblock 'jsBlock' %}
+</body>
+</html>
