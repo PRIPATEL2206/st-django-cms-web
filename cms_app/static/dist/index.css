@@ -451,6 +451,14 @@ strong {
   transform: translateY(0);
 }
 
+.btn-2 {
+  background: #66b2b2;
+}
+.btn-2:hover {
+  color: #66b2b2;
+  border-color: #66b2b2;
+}
+
 @media only screen and (max-width: 830px) {
   .link-bg {
     font-size: 1.25rem;
@@ -505,42 +513,42 @@ section {
     max-width: 90%;
   }
 }
-[data-page=cart] .hero .container .cart-list .cart-item, [data-page=admin] .dashboard .container .bottom .card .header, [data-page=admin] .dashboard .container .top-bar .overview-card .card-header, .hero .container .form .profile-info .input-container .box, .footer .container .footer-panel, nav .container {
+[data-page=cart] .hero .container .cart-list .cart-item, [data-page=admin] .dashboard .container .bottom .card .header, [data-page=admin] .dashboard .container .top-bar .overview-card .card-header, .form-page .container .form .profile-info .input-container .box, .footer .container .footer-panel, nav .container {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
 }
 
-[data-page=admin] .dashboard .container .top-bar .overview-card .card-content .info, .hero .container .form .profile-avatar .avatar-input-container label, .slider-controller-box, .slider-controller, .footer .container .footer-content .footer-box-2 .footer-list .sign-in, nav .container .sign-in, nav .container .navigation-box .navigation-links, nav .container .navigation-box {
+[data-page=admin] .dashboard .container .top-bar .overview-card .card-content .info, .form-page .container .form .profile-avatar .avatar-input-container label, .footer .container .footer-content .footer-box-2 .footer-list .sign-in, nav .container .sign-in, nav .container .navigation-box .navigation-links, nav .container .navigation-box {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
 }
 
-[data-page=cart] .hero .container .cart-list .cart-item .cart-quantity, [data-page=cart] .hero .container .cart-list .cart-item .action-btns, .slider-controller-box .slider-controller-button {
+[data-page=cart] .hero .container .cart-list .cart-item .cart-quantity, [data-page=cart] .hero .container .cart-list .cart-item .action-btns {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
 }
 
-[data-page=admin] .dashboard .container .bottom .card .header .duration, [data-page=admin] .dashboard .container .bottom, [data-page=admin] .dashboard .container .top-bar .card-wrapper, [data-page=admin] .dashboard .container .top-bar, [data-page=home] .grocery .container .grocery-slider .grocery-card-wrapper, .hero .container .form {
+[data-page=user-display] .users .container .users-slider .user-card-wrapper, [data-page=admin] .dashboard .container .bottom .card .header .duration, [data-page=admin] .dashboard .container .bottom, [data-page=admin] .dashboard .container .top-bar .card-wrapper, [data-page=admin] .dashboard .container .top-bar, [data-page=home] .grocery .container .grocery-slider .grocery-card-wrapper, .order-detail-item .order-btn, .order-detail-item .details-box .detail, .order-detail-item .details-box, .order-detail-item .products, .popup .popup-box .btn-box, .form-page .container .form {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
 }
 
-.footer .container .footer-content .footer-box-2, .footer .container .footer-content {
+.order-detail-item .products .product, .footer .container .footer-content .footer-box-2, .footer .container .footer-content {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
 }
 
-[data-page=cart] .hero .container .cart-list, .hero .container .form .profile-info, .hero .container, .cta .cta-wrapper form .input-container, .grocery-card .card-content, .input-container, .footer .container .footer-content .footer-box-2 .footer-list, .footer .container .footer-content .footer-box, .hamb-menu .hamb-list .accordian .accordian-content {
+[data-page=order] .orders .container, [data-page=my-orders] .orders .container .orders-details, [data-page=my-orders] .orders .container, [data-page=all-orders] .orders .container .orders-details, [data-page=all-orders] .orders .container, [data-page=cart] .hero .container .cart-list, .order-detail-item, .popup .popup-box, .form-page .container .form .profile-info, .form-page .container, .cta .cta-wrapper form .input-container, .user-card, .grocery-card .card-content, .input-container, .footer .container .footer-content .footer-box-2 .footer-list, .footer .container .footer-content .footer-box, .hamb-menu .hamb-list .accordian .accordian-content {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -561,7 +569,7 @@ section {
   justify-content: flex-start;
 }
 
-[data-page=admin] .dashboard .container .top-bar .overview-card .circle, [data-page=home] .grocery .container .grocery-title, .hero .container .form .profile-avatar .avatar-input-container, .hero .container .form .profile-avatar .profile-figure, .cta, .grocery-card .card-figure, .grocery-card, .hamb-menu .hamb-list, nav .container .hamb-btn {
+[data-page=admin] .dashboard .container .top-bar .overview-card .circle, [data-page=home] .grocery .container .grocery-title, .form-page .container .form .profile-avatar .avatar-input-container, .form-page .container .form .profile-avatar .profile-figure, .cta, .user-card .card-figure, .grocery-card .card-figure, .grocery-card, .hamb-menu .hamb-list, nav .container .hamb-btn {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -849,53 +857,29 @@ nav .container .hamb-btn.active .divider:nth-child(2) {
     gap: 1rem;
   }
 }
-.slider-controller {
-  width: auto;
-  height: auto;
-  margin-top: 5rem;
-  gap: 2rem;
-}
-.slider-controller-box {
-  width: auto;
-  height: auto;
-  gap: 2rem;
-}
-.slider-controller-box .slider-controller-button {
-  border: 2px solid #eeeeee;
-  width: 5rem;
+.slider-controls {
+  position: relative;
+  margin-top: 4rem;
   height: 5rem;
-  transition: all 0.5s ease;
 }
-.slider-controller-box .slider-controller-button img {
-  width: 1.8rem;
-  height: auto;
+.slider-controls .swiper-pagination-bullet {
+  width: 3rem;
+  height: 3rem;
+  padding: 0.5rem;
+  text-align: center;
+  line-height: 20px;
+  font-size: 2rem;
+  color: #cd5c08;
+  opacity: 1;
+  border-radius: 0;
+  background: #ffffff;
+  border: 1px solid #cd5c08;
 }
-.slider-controller-box .slider-controller-button:hover {
-  border: 2px solid #000000;
-}
-.slider-controller-box .slider-controller-button.prev-btn img {
-  transform: rotate(180deg);
-}
-.slider-controller p {
-  color: #bebebe;
+.slider-controls .swiper-pagination-bullet-active {
+  color: #ffffff;
+  background: #cd5c08;
 }
 
-@media only screen and (max-width: 830px) {
-  .slider-controller {
-    gap: 1rem;
-    margin-top: 2rem;
-  }
-  .slider-controller-box {
-    gap: 0.5rem;
-  }
-  .slider-controller-box .slider-controller-button {
-    width: 4rem;
-    height: 4rem;
-  }
-  .slider-controller-box .slider-controller-button img {
-    width: 1.25rem;
-  }
-}
 .input-container {
   width: 100%;
   /* remove number spinners */
@@ -991,6 +975,56 @@ nav .container .hamb-btn.active .divider:nth-child(2) {
   padding: 1.5rem 3rem;
 }
 
+.user-card {
+  gap: 3rem;
+  border: 2px solid #cd5c08;
+  border-radius: 10px;
+  padding: 3rem;
+  position: relative;
+}
+.user-card:hover .user-id {
+  transform: scale(1);
+}
+.user-card .user-id {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #eeeeee;
+  padding: 1rem;
+  font-size: 1.6rem;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.2s ease-in;
+}
+.user-card .card-figure {
+  align-self: center;
+  width: 20rem;
+  height: 20rem;
+  border-radius: 50%;
+  background: #eeeeee;
+}
+.user-card .card-figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.user-card .card-content {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  padding-top: 3rem;
+  position: relative;
+}
+.user-card .card-content::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0%;
+  width: 100%;
+  height: 2px;
+  background-color: #eeeeee;
+}
+
 .cta {
   width: 100%;
   height: calc(var(--vh, 1vh) * 100);
@@ -1044,41 +1078,41 @@ nav .container .hamb-btn.active .divider:nth-child(2) {
   border: 1px solid #66b2b2;
 }
 
-.hero {
+.form-page {
   padding: 17rem 0 7rem 0;
 }
-.hero .container {
+.form-page .container {
   row-gap: 6rem;
   padding: 0 10%;
 }
-.hero .container .form {
+.form-page .container .form {
   width: 100%;
   flex-wrap: wrap;
   column-gap: 8rem;
   row-gap: 6rem;
 }
-.hero .container .form .profile-avatar {
+.form-page .container .form .profile-avatar {
   position: relative;
   border-radius: 50%;
   overflow: hidden;
 }
-.hero .container .form .profile-avatar:hover .avatar-input-container {
+.form-page .container .form .profile-avatar:hover .avatar-input-container {
   opacity: 1;
 }
-.hero .container .form .profile-avatar:hover .avatar-input-container label {
+.form-page .container .form .profile-avatar:hover .avatar-input-container label {
   transform: translateY(0);
 }
-.hero .container .form .profile-avatar .profile-figure {
+.form-page .container .form .profile-avatar .profile-figure {
   width: 30rem;
   height: 30rem;
   background: #eeeeee;
 }
-.hero .container .form .profile-avatar .profile-figure img {
+.form-page .container .form .profile-avatar .profile-figure img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.hero .container .form .profile-avatar .avatar-input-container {
+.form-page .container .form .profile-avatar .avatar-input-container {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -1089,7 +1123,7 @@ nav .container .hamb-btn.active .divider:nth-child(2) {
   opacity: 0;
   transition: opacity 0.2s ease-out;
 }
-.hero .container .form .profile-avatar .avatar-input-container label {
+.form-page .container .form .profile-avatar .avatar-input-container label {
   gap: 1rem;
   font-size: 3rem;
   color: #ffffff;
@@ -1099,38 +1133,38 @@ nav .container .hamb-btn.active .divider:nth-child(2) {
   transform: translateY(1rem);
   transition: transform 0.3s ease;
 }
-.hero .container .form .profile-avatar .avatar-input-container label img {
+.form-page .container .form .profile-avatar .avatar-input-container label img {
   height: 90%;
 }
-.hero .container .form .profile-avatar .avatar-input-container input {
+.form-page .container .form .profile-avatar .avatar-input-container input {
   display: none;
 }
-.hero .container .form .profile-info {
+.form-page .container .form .profile-info {
   flex: 1;
   gap: 3rem;
 }
-.hero .container .form .profile-info .input-container {
+.form-page .container .form .profile-info .input-container {
   gap: 1rem;
 }
-.hero .container .form .profile-info .input-container label {
+.form-page .container .form .profile-info .input-container label {
   flex: 0 0 100%;
   min-width: 100%;
 }
-.hero .container .form .profile-info .input-container .box {
+.form-page .container .form .profile-info .input-container .box {
   width: 100%;
   border: 2px solid #eeeeee;
   padding: 0 1rem;
   border-radius: 5px;
 }
-.hero .container .form .profile-info .input-container .box:has(input:focus:not([readonly])) {
+.form-page .container .form .profile-info .input-container .box:has(input:focus:not([readonly])) {
   border: 2px solid #000000;
 }
-.hero .container .form .profile-info .input-container .box input {
+.form-page .container .form .profile-info .input-container .box input {
   flex: 0 0 90%;
   min-width: 90%;
   border: 0;
 }
-.hero .container .form .profile-info .input-container .box select {
+.form-page .container .form .profile-info .input-container .box select {
   flex: 0 0 100%;
   font-family: "Poppins", sans-serif;
   font-size: 1.9rem;
@@ -1139,14 +1173,111 @@ nav .container .hamb-btn.active .divider:nth-child(2) {
   color: #000000;
   padding: 1.5rem 0 1rem 0;
 }
-.hero .container .form .profile-info .input-container .box .edit-btn {
+.form-page .container .form .profile-info .input-container .box .edit-btn {
   font-size: 1.6rem;
   padding: 0.7rem 1rem;
   background: #eeeeee;
   border-radius: 2px;
 }
-.hero .container .form .profile-info .text {
+.form-page .container .form .profile-info .text {
   color: #cd5c08;
+}
+
+.popup {
+  position: fixed;
+  width: 100%;
+  height: calc(var(--vh, 1vh) * 100);
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  backdrop-filter: blur(5px);
+}
+.popup .popup-box {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -20%);
+  background: #ffffff;
+  padding: 2rem;
+  gap: 2rem;
+  border-radius: 5px;
+}
+.popup .popup-box h2 {
+  color: #cd5c08;
+}
+.popup .popup-box .btn-box {
+  align-self: flex-end;
+  gap: 1rem;
+}
+
+.order-detail-item {
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 5rem;
+  padding: 4rem;
+  background: #eeeeee;
+  border-radius: 15px;
+  position: relative;
+}
+.order-detail-item .tag {
+  position: absolute;
+  top: 3rem;
+  right: 3rem;
+  font-size: 2rem;
+  background: #ffffff;
+  padding: 1rem 1.5rem;
+  border: 1px solid #66b2b2;
+  color: #66b2b2;
+}
+.order-detail-item .products {
+  flex-wrap: wrap;
+  row-gap: 3rem;
+}
+.order-detail-item .products .product {
+  flex: 0 0 50%;
+  max-width: 50%;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid #000000;
+}
+.order-detail-item .products .product .product-figure {
+  flex: 0 0 30%;
+  max-width: 30%;
+  border: 2px solid #cd5c08;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.order-detail-item .products .product .product-figure img {
+  width: 100%;
+  height: auto;
+}
+.order-detail-item .products .product .product-details {
+  flex: 0 0 65%;
+  max-width: 65%;
+}
+.order-detail-item .products .product .product-details .detail {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+.order-detail-item .details-box {
+  flex-wrap: wrap;
+  row-gap: 1rem;
+  column-gap: 4rem;
+}
+.order-detail-item .details-box h2 {
+  flex: 0 0 100%;
+  max-width: 100%;
+  font-weight: 500;
+}
+.order-detail-item .details-box .detail {
+  gap: 1rem;
+}
+.order-detail-item .details-box .detail .bold {
+  font-weight: 500;
+}
+.order-detail-item .order-btn {
+  align-self: flex-end;
+  gap: 2rem;
 }
 
 [data-page=home] .grocery {
@@ -1170,29 +1301,7 @@ nav .container .hamb-btn.active .divider:nth-child(2) {
 [data-page=home] .grocery .container .grocery-slider .grocery-card-wrapper .grocery-card {
   --width: calc((100% - 8rem) / 3);
   flex-basis: var(--width);
-  width: var(--width);
-}
-[data-page=home] .grocery .container .grocery-slider .slider-controls {
-  position: relative;
-  margin-top: 4rem;
-  height: 5rem;
-}
-[data-page=home] .grocery .container .grocery-slider .slider-controls .swiper-pagination-bullet {
-  width: 3rem;
-  height: 3rem;
-  padding: 0.5rem;
-  text-align: center;
-  line-height: 20px;
-  font-size: 2rem;
-  color: #cd5c08;
-  opacity: 1;
-  border-radius: 0;
-  background: #ffffff;
-  border: 1px solid #cd5c08;
-}
-[data-page=home] .grocery .container .grocery-slider .slider-controls .swiper-pagination-bullet-active {
-  color: #ffffff;
-  background: #cd5c08;
+  max-width: var(--width);
 }
 
 @keyframes ping {
@@ -1372,6 +1481,58 @@ nav .container .hamb-btn.active .divider:nth-child(2) {
 [data-page=add-product] .hero .container .form .profile-avatar .avatar-input-container {
   transform: translate(-50%, -40%);
   height: 85%;
+}
+
+[data-page=user-display] .users {
+  padding: 17rem 0 7rem 0;
+}
+[data-page=user-display] .users .container {
+  padding: 0 10%;
+}
+[data-page=user-display] .users .container .users-slider {
+  margin-top: 5rem;
+}
+[data-page=user-display] .users .container .users-slider .user-card-wrapper {
+  flex-wrap: wrap;
+  row-gap: 5rem;
+  column-gap: 4rem;
+}
+[data-page=user-display] .users .container .users-slider .user-card-wrapper .user-link {
+  box-sizing: border-box;
+  --width: calc((100% - 8rem) / 3);
+  flex-basis: var(--width);
+  max-width: var(--width);
+}
+[data-page=all-orders] .orders {
+  padding: 17rem 0 7rem 0;
+}
+[data-page=all-orders] .orders .container {
+  padding: 0 10%;
+  gap: 5rem;
+}
+[data-page=all-orders] .orders .container .orders-details {
+  width: 100%;
+  gap: 6rem;
+}
+
+[data-page=my-orders] .orders {
+  padding: 17rem 0 7rem 0;
+}
+[data-page=my-orders] .orders .container {
+  padding: 0 10%;
+  gap: 5rem;
+}
+[data-page=my-orders] .orders .container .orders-details {
+  width: 100%;
+  gap: 6rem;
+}
+
+[data-page=order] .orders {
+  padding: 17rem 0 7rem 0;
+}
+[data-page=order] .orders .container {
+  padding: 0 10%;
+  gap: 5rem;
 }
 
 /*# sourceMappingURL=index.css.map */

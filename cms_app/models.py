@@ -4,6 +4,7 @@ from typing import Any
 from uuid import uuid1
 from django.db import models
 from django.contrib.auth.models import User
+from django.forms import SelectDateWidget
 
 ROLES={
     1:"customer",
@@ -61,7 +62,9 @@ class Product(models.Model):
     quntity=models.PositiveSmallIntegerField(default=0)
     cart=models.ForeignKey(Cart,on_delete=models.CASCADE,default=None,null=True)
     added_datetime=models.DateTimeField(auto_now_add=True)
+    def __str__(self) -> str:
 
+        return self.name
 
     
 class Order(models.Model):

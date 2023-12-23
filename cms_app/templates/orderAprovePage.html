@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block 'cssBlock' %}
+{% endblock 'cssBlock' %}
+{% block 'body' %}
+
+<!-- content start -->
+<div class="orders">
+    <div class="container">
+        <h1 class="title-5xl">Order</h1>
+        <div class="orders-details">
+            <div class="order-detail-item">
+                <div class="user-details details-box">
+                    <h2 class="title-2xl">User Details</h2>
+                    <div class="detail">
+                        <p class="paragraph-md bold">Name :</p>
+                        <p class="paragraph-md">{{order.buyer.user.username}}</p>
+                    </div>
+                    <div class="detail">
+                        <p class="paragraph-md bold">Email :</p>
+                        <p class="paragraph-md">{{order.buyer.email}}</p>
+                    </div>
+                    <div class="detail">
+                        <p class="paragraph-md bold">Contect Number :</p>
+                        <p class="paragraph-md">{{order.buyer.contect_number}}</p>
+                    </div>
+                    <div class="detail">
+                        <p class="paragraph-md bold">Address :</p>
+                        <p class="paragraph-md">&#8377; {{order.address}}</p>
+                    </div>
+                </div>
+                <div class="products">
+                    {% for product in products %}   
+                    <div class="product">
+                        <figure class="product-figure">
+                            <img src="{{product.img.url}}" alt="" />
+                        </figure>
+                        <div class="product-details details-box">
+                            <h2 class="title-2xl">Product Details</h2>
+                            <div class="detail">
+                                <p class="paragraph-md bold">Name :</p>
+                                <p class="paragraph-md">{{product.name}}</p>
+                            </div>
+                            <div class="detail">
+                                <p class="paragraph-md bold">Quantity :</p>
+                                <p class="paragraph-md">{{product.quntity}}</p>
+                            </div>
+                            <div class="detail">
+                                <p class="paragraph-md bold">Price :</p>
+                                <p class="paragraph-md">&#8377; {{product.prize}}</p>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+                </div>
+                <div class="order-details details-box">
+                    <h2 class="title-2xl">Order Details</h2>
+                    <div class="detail">
+                        <p class="paragraph-md bold">Order id :</p>
+                        <p class="paragraph-md">{{order.id}}</p>
+                    </div>
+                    <div class="detail">
+                        <p class="paragraph-md bold">Total Price :</p>
+                        <p class="paragraph-md">&#8377; {{order.total_prize}}</p>
+                    </div>
+                    
+                </div>
+                <div class="order-btn">
+                   <a href="aproveOrder/{{order.id}}"> <button class="link-bg btn-2">Approve</button></a>
+                   <a href="discardOrder/{{order.id}}"> <button class="link-bg">Discard</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- content end -->
+{% endblock 'body' %}
+
+{% block 'jsBlock' %}
+
+
+<!-- external scripts (cdns) -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fontfaceobserver/2.3.0/fontfaceobserver.min.js"
+    integrity="sha512-7g/mtWY/pF5yAwrcHhRBBrDK3Tr1Xbjaweymp5/jiEmKJurJkRfi5grW5mKQx78wPRoQPOu1zfeWdJtsCw8QsQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/textify.js@3.0.1/dist/Textify.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
+    integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+<!-- inner scripts -->
+<script src="{% static 'js/profile.js' %}"></script>
+{% endblock 'jsBlock' %}

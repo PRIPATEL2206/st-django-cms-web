@@ -1,0 +1,350 @@
+{% extends "base.html" %}
+{% load static %}
+{% block 'cssBlock' %}
+{% endblock 'cssBlock' %}
+{% block 'body' %}
+
+<!-- content start -->
+<section class="users">
+    <div class="container">
+        <h1 class="title-5xl users-title">Users</h1>
+        <div class="swiper users-slider">
+            <div class="swiper-wrapper">
+                {% for users in pages %}
+                <div class="user-card-wrapper swiper-slide">
+                    {% for user in users %}
+                    <a href="/user/{{user.id}}" class="user-link">
+                        <div class="user-card">
+                            <span class="user-id">{{user.id}}</span>
+                            <figure class="card-figure">
+                                <img src="{{user.profile_img.url}}" alt="user">
+                            </figure>
+                            <div class="card-content">
+                                <p class="paragraph-md">Username :</p>
+                                <h2 class="title-3xl">{{user.user.username}}</h2>
+                            </div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+
+                <!-- <div class="user-card-wrapper swiper-slide">
+                    <a href="./user.html" class="user-link">
+                        <div class="user-card">
+                            <span class="user-id">#001</span>
+                            <figure class="card-figure">
+                                <img src="./assets/images/icons/user.svg" alt="user">
+                            </figure>
+                            <div class="card-content">
+                                <p class="paragraph-md">Username :</p>
+                                <h2 class="title-3xl">Prince Patel</h2>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="./user.html" class="user-link">
+                        <div class="user-card">
+                            <span class="user-id">#001</span>
+                            <figure class="card-figure">
+                                <img src="./assets/images/icons/user.svg" alt="user">
+                            </figure>
+                            <div class="card-content">
+                                <p class="paragraph-md">Username :</p>
+                                <h2 class="title-3xl">Prince Patel</h2>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="./user.html" class="user-link">
+                        <div class="user-card">
+                            <span class="user-id">#001</span>
+                            <figure class="card-figure">
+                                <img src="./assets/images/icons/user.svg" alt="user">
+                            </figure>
+                            <div class="card-content">
+                                <p class="paragraph-md">Username :</p>
+                                <h2 class="title-3xl">Prince Patel</h2>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="./user.html" class="user-link">
+                        <div class="user-card">
+                            <span class="user-id">#001</span>
+                            <figure class="card-figure">
+                                <img src="./assets/images/icons/user.svg" alt="user">
+                            </figure>
+                            <div class="card-content">
+                                <p class="paragraph-md">Username :</p>
+                                <h2 class="title-3xl">Prince Patel</h2>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="./user.html" class="user-link">
+                        <div class="user-card">
+                            <span class="user-id">#001</span>
+                            <figure class="card-figure">
+                                <img src="./assets/images/icons/user.svg" alt="user">
+                            </figure>
+                            <div class="card-content">
+                                <p class="paragraph-md">Username :</p>
+                                <h2 class="title-3xl">Prince Patel</h2>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="./user.html" class="user-link">
+                        <div class="user-card">
+                            <span class="user-id">#001</span>
+                            <figure class="card-figure">
+                                <img src="./assets/images/icons/user.svg" alt="user">
+                            </figure>
+                            <div class="card-content">
+                                <p class="paragraph-md">Username :</p>
+                                <h2 class="title-3xl">Prince Patel</h2>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="./user.html" class="user-link">
+                        <div class="user-card">
+                            <span class="user-id">#001</span>
+                            <figure class="card-figure">
+                                <img src="./assets/images/icons/user.svg" alt="user">
+                            </figure>
+                            <div class="card-content">
+                                <p class="paragraph-md">Username :</p>
+                                <h2 class="title-3xl">Prince Patel</h2>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="./user.html" class="user-link">
+                        <div class="user-card">
+                            <span class="user-id">#001</span>
+                            <figure class="card-figure">
+                                <img src="./assets/images/icons/user.svg" alt="user">
+                            </figure>
+                            <div class="card-content">
+                                <p class="paragraph-md">Username :</p>
+                                <h2 class="title-3xl">Prince Patel</h2>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="./user.html" class="user-link">
+                        <div class="user-card">
+                            <span class="user-id">#001</span>
+                            <figure class="card-figure">
+                                <img src="./assets/images/icons/user.svg" alt="user">
+                            </figure>
+                            <div class="card-content">
+                                <p class="paragraph-md">Username :</p>
+                                <h2 class="title-3xl">Prince Patel</h2>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="./user.html" class="user-link">
+                        <div class="user-card">
+                            <span class="user-id">#001</span>
+                            <figure class="card-figure">
+                                <img src="./assets/images/icons/user.svg" alt="user">
+                            </figure>
+                            <div class="card-content">
+                                <p class="paragraph-md">Username :</p>
+                                <h2 class="title-3xl">Prince Patel</h2>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="./user.html" class="user-link">
+                        <div class="user-card">
+                            <span class="user-id">#001</span>
+                            <figure class="card-figure">
+                                <img src="./assets/images/icons/user.svg" alt="user">
+                            </figure>
+                            <div class="card-content">
+                                <p class="paragraph-md">Username :</p>
+                                <h2 class="title-3xl">Prince Patel</h2>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="./user.html" class="user-link">
+                        <div class="user-card">
+                            <span class="user-id">#001</span>
+                            <figure class="card-figure">
+                                <img src="./assets/images/icons/user.svg" alt="user">
+                            </figure>
+                            <div class="card-content">
+                                <p class="paragraph-md">Username :</p>
+                                <h2 class="title-3xl">Prince Patel</h2>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="user-card-wrapper swiper-slide">
+                    <a href="./user.html" class="user-link">
+                        <div class="user-card">
+                            <span class="user-id">#001</span>
+                            <figure class="card-figure">
+                                <img src="./assets/images/icons/user.svg" alt="user">
+                            </figure>
+                            <div class="card-content">
+                                <p class="paragraph-md">Username :</p>
+                                <h2 class="title-3xl">Prince Patel</h2>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="./user.html" class="user-link">
+                        <div class="user-card">
+                            <span class="user-id">#001</span>
+                            <figure class="card-figure">
+                                <img src="./assets/images/icons/user.svg" alt="user">
+                            </figure>
+                            <div class="card-content">
+                                <p class="paragraph-md">Username :</p>
+                                <h2 class="title-3xl">Prince Patel</h2>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="./user.html" class="user-link">
+                        <div class="user-card">
+                            <span class="user-id">#001</span>
+                            <figure class="card-figure">
+                                <img src="./assets/images/icons/user.svg" alt="user">
+                            </figure>
+                            <div class="card-content">
+                                <p class="paragraph-md">Username :</p>
+                                <h2 class="title-3xl">Prince Patel</h2>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="./user.html" class="user-link">
+                        <div class="user-card">
+                            <span class="user-id">#001</span>
+                            <figure class="card-figure">
+                                <img src="./assets/images/icons/user.svg" alt="user">
+                            </figure>
+                            <div class="card-content">
+                                <p class="paragraph-md">Username :</p>
+                                <h2 class="title-3xl">Prince Patel</h2>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="./user.html" class="user-link">
+                        <div class="user-card">
+                            <span class="user-id">#001</span>
+                            <figure class="card-figure">
+                                <img src="./assets/images/icons/user.svg" alt="user">
+                            </figure>
+                            <div class="card-content">
+                                <p class="paragraph-md">Username :</p>
+                                <h2 class="title-3xl">Prince Patel</h2>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="./user.html" class="user-link">
+                        <div class="user-card">
+                            <span class="user-id">#001</span>
+                            <figure class="card-figure">
+                                <img src="./assets/images/icons/user.svg" alt="user">
+                            </figure>
+                            <div class="card-content">
+                                <p class="paragraph-md">Username :</p>
+                                <h2 class="title-3xl">Prince Patel</h2>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="./user.html" class="user-link">
+                        <div class="user-card">
+                            <span class="user-id">#001</span>
+                            <figure class="card-figure">
+                                <img src="./assets/images/icons/user.svg" alt="user">
+                            </figure>
+                            <div class="card-content">
+                                <p class="paragraph-md">Username :</p>
+                                <h2 class="title-3xl">Prince Patel</h2>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="./user.html" class="user-link">
+                        <div class="user-card">
+                            <span class="user-id">#001</span>
+                            <figure class="card-figure">
+                                <img src="./assets/images/icons/user.svg" alt="user">
+                            </figure>
+                            <div class="card-content">
+                                <p class="paragraph-md">Username :</p>
+                                <h2 class="title-3xl">Prince Patel</h2>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="./user.html" class="user-link">
+                        <div class="user-card">
+                            <span class="user-id">#001</span>
+                            <figure class="card-figure">
+                                <img src="./assets/images/icons/user.svg" alt="user">
+                            </figure>
+                            <div class="card-content">
+                                <p class="paragraph-md">Username :</p>
+                                <h2 class="title-3xl">Prince Patel</h2>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="./user.html" class="user-link">
+                        <div class="user-card">
+                            <span class="user-id">#001</span>
+                            <figure class="card-figure">
+                                <img src="./assets/images/icons/user.svg" alt="user">
+                            </figure>
+                            <div class="card-content">
+                                <p class="paragraph-md">Username :</p>
+                                <h2 class="title-3xl">Prince Patel</h2>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="./user.html" class="user-link">
+                        <div class="user-card">
+                            <span class="user-id">#001</span>
+                            <figure class="card-figure">
+                                <img src="./assets/images/icons/user.svg" alt="user">
+                            </figure>
+                            <div class="card-content">
+                                <p class="paragraph-md">Username :</p>
+                                <h2 class="title-3xl">Prince Patel</h2>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="./user.html" class="user-link">
+                        <div class="user-card">
+                            <span class="user-id">#001</span>
+                            <figure class="card-figure">
+                                <img src="./assets/images/icons/user.svg" alt="user">
+                            </figure>
+                            <div class="card-content">
+                                <p class="paragraph-md">Username :</p>
+                                <h2 class="title-3xl">Prince Patel</h2>
+                            </div>
+                        </div>
+                    </a>
+                </div> -->
+                <!-- <div class="grocery-card-wrapper swiper-slide"> </div>-->
+
+            </div>
+            <div class="slider-controls">
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock 'body' %}
+
+{% block 'jsBlock' %}
+
+
+<!-- external scripts (cdns) -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/textify.js@3.0.1/dist/Textify.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
+    integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- inner scripts -->
+<script src="{% static 'js/userDisplay.js' %}"></script>
+{% endblock 'jsBlock' %}

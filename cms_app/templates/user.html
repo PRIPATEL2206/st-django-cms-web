@@ -3,54 +3,78 @@
 
 {% block 'cssBlock' %}
 {% endblock 'cssBlock' %}
-
 {% block 'body' %}
 
 <!-- content start -->
-<div class="hero form-page">
+<div class="form-page">
     <div class="container">
-        <h1 class="title-5xl profile-title">Add Product</h1>
-        <form class="form" action="{% url 'addProduct' %}" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
+        <h1 class="title-5xl profile-title">User Details</h1>
+        <form class="form">
             <div class="profile-avatar">
-                <h2 class="title-2xl">Product Picture</h2>
                 <figure class="profile-figure">
+                    {% if user.profile_img %}
+                    <img src="{{user.profile_img.url}}" alt="" class="profile-img">
+                    {% else %}
                     <img src="{% static 'images/icons/user.svg' %}" alt="" class="profile-img">
+                    {% endif %}
                 </figure>
                 <div class="avatar-input-container">
                     <label for="img"> <img src="{% static 'images/icons/uplaod.svg' %}" alt="">Upload</label>
-                    <input type="file" name="img" id="img" class="profile-img-input" accept="image/*">
+                    <input type="file" name="img" id="img" class="profile-img-input">
                 </div>
             </div>
             <div class="profile-info">
                 <div class="input-container">
-                    <label for="name" class="title-2xl">Product Name*</label>
+                    <label for="user-id" class="title-2xl">User ID</label>
                     <div class="box">
-                        <input id="name" name="name" type="text" required>
+                        <input id="user-id" name="user-id" type="number" value="{{user.id}}" readonly>
                     </div>
                 </div>
                 <div class="input-container">
-                    <label for="desc" class="title-2xl">Product Description*</label>
+                    <label for="name" class="title-2xl">Username</label>
                     <div class="box">
-                        <input id="desc" name="desc" type="text" required>
+                        <input id="name" name="name" type="text" value="{{user.user.username}}" readonly>
                     </div>
                 </div>
                 <div class="input-container">
-                    <label for="price" class="title-2xl">Price*</label>
+                    <label for="Email" class="title-2xl">Email</label>
                     <div class="box">
-                        <input id="price" name="price" type="text" required>
+                        <input id="Email" name="Email" type="email" value="{{user.email}}" readonly>
                     </div>
                 </div>
-                <button class="link-bg">Add</button>
+                <div class="input-container">
+                    <label for="role" class="title-2xl">Role</label>
+                    <div class="box">
+                        <input id="roel" name="role" type="text" value="{{user.role}}" readonly>
+                    </div>
+                </div>
+                <div class="input-container">
+                    <label for="Address" class="title-2xl">Address*</label>
+                    <div class="box">
+                        <input id="Address" name="Address" type="text" value="{{user.address}}"
+                            readonly>
+                    </div>
+                </div>
+                <div class="input-container">
+                    <label for="phone" class="title-2xl">Contact No.*</label>
+                    <div class="box">
+                        <input id="phone" name="phone" type="number" value="{{user.contect_number}}" readonly>
+                    </div>
+                </div>
+
+                <!-- <button class="link-bg">Delete</button> -->
             </div>
         </form>
     </div>
 </div>
 
+<!-- content end -->
+
 {% endblock 'body' %}
 
-
 {% block 'jsBlock' %}
+
+
 <!-- external scripts (cdns) -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
@@ -65,5 +89,5 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
 <!-- inner scripts -->
-<script src="{% static 'js/uploadImg.js' %}"></script>
+<script src="{% static 'js/profile.js' %}"></script>
 {% endblock 'jsBlock' %}

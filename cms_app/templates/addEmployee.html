@@ -5,15 +5,13 @@
 {% endblock 'cssBlock' %}
 
 {% block 'body' %}
-
 <!-- content start -->
-<div class="hero form-page">
+<div class="form-page">
     <div class="container">
-        <h1 class="title-5xl profile-title">Add Product</h1>
-        <form class="form" action="{% url 'addProduct' %}" method="post" enctype="multipart/form-data">
+        <h1 class="title-5xl profile-title">Add New Employee</h1>
+        <form class="form" action="{% url 'addEmployee' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="profile-avatar">
-                <h2 class="title-2xl">Product Picture</h2>
                 <figure class="profile-figure">
                     <img src="{% static 'images/icons/user.svg' %}" alt="" class="profile-img">
                 </figure>
@@ -24,28 +22,53 @@
             </div>
             <div class="profile-info">
                 <div class="input-container">
-                    <label for="name" class="title-2xl">Product Name*</label>
+                    <label for="name" class="title-2xl">Username*</label>
                     <div class="box">
                         <input id="name" name="name" type="text" required>
                     </div>
                 </div>
                 <div class="input-container">
-                    <label for="desc" class="title-2xl">Product Description*</label>
+                    <label for="Email" class="title-2xl">Email*</label>
                     <div class="box">
-                        <input id="desc" name="desc" type="text" required>
+                        <input id="Email" name="Email" type="email" required>
+                    </div>
+                </div>  
+                <div class="input-container">
+                    <label for="Address" class="title-2xl">Address*</label>
+                    <div class="box">
+                        <input id="Address" name="Address" type="text" required>
                     </div>
                 </div>
                 <div class="input-container">
-                    <label for="price" class="title-2xl">Price*</label>
+                    <label for="phone" class="title-2xl">Contact No.*</label>
                     <div class="box">
-                        <input id="price" name="price" type="text" required>
+                        <input id="phone" name="phone" type="number" required>
                     </div>
                 </div>
-                <button class="link-bg">Add</button>
+                <div class="input-container">
+                    <label for="password" class="title-2xl">Password*</label>
+                    <div class="box">
+                        <input id="password" name="password" type="text" required>
+                    </div>
+                </div>
+                <!-- <div class="input-container">
+                                <label for="pwd" class="title-2xl">Password*</label>
+                                <div class="box">
+                                    <input id="pwd" name="pwd" type="number" required>
+                                </div>
+                            </div>
+                            <div class="input-container">
+                                <label for="cpwd" class="title-2xl">Confirm Password*</label>
+                                <div class="box">
+                                    <input id="cpwd" name="cpwd" type="number" required>
+                                </div>
+                            </div> -->
+                <button class="link-bg">Submit</button>
             </div>
         </form>
     </div>
 </div>
+<!-- content end -->
 
 {% endblock 'body' %}
 
@@ -65,5 +88,5 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
 <!-- inner scripts -->
-<script src="{% static 'js/uploadImg.js' %}"></script>
+<script src="{% static 'js/profile.js' %}"></script>
 {% endblock 'jsBlock' %}

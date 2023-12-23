@@ -8,7 +8,7 @@
     <title>Document</title>
 
     <!-- styles -->
-    <link rel="stylesheet" as="preload" href="{% static "dist/index.css" %}">
+    <link rel="stylesheet" as="preload" href="{% static 'dist/index.css' %}">
 
     <!-- extra -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
@@ -20,26 +20,23 @@
     <nav class="navigation"></nav>
     <!-- navigation bar end -->
 
-    <!-- hamb burgermenu start -->
-    <div class="hamb-menu" style="display: none"></div>
-    <!-- hamb burgermenu end -->
 
     <!-- wrapper start -->
     <div class="wrapper" data-page="register">
         <!-- scroller start -->
         <div class="scroll-container">
             <!-- content start -->
-            <div class="hero">
+            <div class="form-page">
                 <div class="container">
                     <h1 class="title-5xl profile-title">Register</h1>
                     <form class="form" action="{% url 'register' %}" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="profile-avatar">
                             <figure class="profile-figure">
-                                <img src="{% static "images/icons/user.svg" %}" alt="" class="profile-img" accept="image/*" >
+                                <img src="{% static 'images/icons/user.svg' %}" alt="" class="profile-img" accept="image/*" >
                             </figure>
                             <div class="avatar-input-container">
-                                <label for="img"> <img src="{% static "images/icons/uplaod.svg" %}" alt="">Upload</label>
+                                <label for="img"> <img src="{% static 'images/icons/uplaod.svg' %}" alt="">Upload</label>
                                 <input type="file" name="img" id="img" class="profile-img-input">
                             </div>
                         </div>
@@ -81,13 +78,13 @@
                             <div class="input-container">
                                 <label for="pwd" class="title-2xl">Password*</label>
                                 <div class="box">
-                                    <input id="pwd" name="pwd" type="number" required>
+                                    <input id="pwd" name="pwd" type="password" required>
                                 </div>
                             </div>
                             <div class="input-container">
                                 <label for="cpwd" class="title-2xl">Confirm Password*</label>
                                 <div class="box">
-                                    <input id="cpwd" name="cpwd" type="number" required>
+                                    <input id="cpwd" name="cpwd" type="password" required>
                                 </div>
                             </div>
                             <button class="link-bg">Submit</button>
@@ -97,7 +94,6 @@
                 </div>
             </div>
 
-            <footer class="footer"></footer>
             <!-- content end -->
         </div>
         <!-- scroller end -->
@@ -119,9 +115,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
     <!-- inner scripts -->
-    <script src="{% static "js/index.js" %}"></script>
-    <script src="{% static "js/profile.js" %}"></script>
-    <script src="{% static "js/global.js" %}"></script>
+    <script src="{% static 'js/profile.js' %}"></script>
+    <script src="{% static 'js/global.js' %}"></script>
 
 </body>
 

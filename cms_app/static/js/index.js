@@ -12,6 +12,10 @@ navBar.innerHTML = `
                 <a href="/profile.html" class="link">Profile</a>
                 <a href="/admin.html" class="link">Admin</a>
                 <a href="/addProduct.html" class="link">Add Product</a>
+                <a href="/addEmployee.html" class="link">Add Emp</a>
+                <a href="/allOrder.html" class="link">All Order</a>
+                <a href="/myOrder.html" class="link">My Order</a>
+                <a href="/userDisplay.html" class="link">Users</a>
             </div>
         </div>
         <div class="navigation-box">
