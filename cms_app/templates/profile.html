@@ -1,134 +1,103 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
+{% load static %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+{% block 'cssBlock' %}
+{% endblock 'cssBlock' %}
 
-    <!-- styles -->
-    <link rel="stylesheet" as="preload" href="./dist/index.css">
+{% block 'body' %}
 
-    <!-- extra -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
-
-</head>
-
-<body>
-    <!-- navigation bar start -->
-    <nav class="navigation">
-    </nav>
-    <!-- navigation bar end -->
-
-    <!-- hamb burgermenu start -->
-    <div class="hamb-menu" style="display: none">
-    </div>
-    <!-- hamb burgermenu end -->
-
-    <!-- wrapper start -->
-    <div class="wrapper" data-page="profile">
-        <!-- scroller start -->
-        <div class="scroll-container">
-            <!-- content start -->
-            <div class="hero">
-                <div class="container">
-                    <h1 class="title-5xl profile-title">User Details</h1>
-                    <form class="form">
-                        <div class="profile-avatar">
-                            <figure class="profile-figure">
-                                <img src="./assets/images/icons/user.svg" alt="" class="profile-img">
-                            </figure>
-                            <div class="avatar-input-container">
-                                <label for="img"> <img src="./assets/images/icons/uplaod.svg" alt="">Upload</label>
-                                <input type="file" name="img" id="img" class="profile-img-input">
-                            </div>
-                        </div>
-                        <div class="profile-info">
-                            <div class="input-container">
-                                <label for="name" class="title-2xl">Username</label>
-                                <div class="box">
-                                    <input id="name" name="name" type="text">
-                                    <button class="edit-btn"><img src="./assets/images/icons/pen.svg" alt="">
-                                        edit</button>
-                                </div>
-                            </div>
-                            <div class="input-container">
-                                <label for="Email" class="title-2xl">Email</label>
-                                <div class="box">
-                                    <input id="Email" name="Email" type="email" value="abc@gmail.com">
-                                    <button class="edit-btn"><img src="./assets/images/icons/pen.svg" alt="">
-                                        edit</button>
-                                </div>
-                            </div>
-                            <div class="input-container">
-                                <label for="role" class="title-2xl">Role</label>
-                                <div class="box">
-                                    <select id="role" name="role" required>
-                                        <option value="customer">Customer</option>
-                                        <option value="employee">Employee</option>
-                                        <option value="admin">Admin</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="input-container">
-                                <label for="Address" class="title-2xl">Address</label>
-                                <div class="box">
-                                    <input id="Address" name="Address" type="text">
-                                    <button class="edit-btn"><img src="./assets/images/icons/pen.svg" alt="">
-                                        edit</button>
-                                </div>
-                            </div>
-                            <div class="input-container">
-                                <label for="phone" class="title-2xl">Contact No.</label>
-                                <div class="box">
-                                    <input id="phone" name="phone" type="number">
-                                    <button class="edit-btn"><img src="./assets/images/icons/pen.svg" alt="">
-                                        edit</button>
-                                </div>
-                            </div>
-                            <div class="input-container">
-                                <label for="Balance" class="title-2xl">Account Balance</label>
-                                <div class="box">
-                                    <input id="Balance" name="Balance" type="number" readonly required>
-                                    <button class="edit-btn add-btn">
-                                        <img src="./assets/images/icons/wallet.svg" alt="">
-                                        Add
-                                    </button>
-                                </div>
-                            </div>
-                            <button class="link-bg">Submit</button>
-                        </div>
-                    </form>
+<div class="hero">
+    <div class="container">
+        <h1 class="title-5xl profile-title">User Details</h1>
+        <form class="form" action="{% url 'updateProfile' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="profile-avatar">
+                <figure class="profile-figure">
+                    {% if image %}
+                    <img src="{{image}}" alt="" class="profile-img">
+                    {% else %}
+                    <img src="{% static 'images/icons/user.svg' %}" alt="" class="profile-img">
+                    {% endif %}
+                </figure>
+                <div class="avatar-input-container">
+                    <label for="img"> <img src="{% static 'images/icons/uplaod.svg' %}" alt="">Upload</label>                    
+                    <input type="file" name="img" id="img" class="profile-img-input" accept="image/*">
                 </div>
             </div>
-
-            <footer class="footer">
-            </footer>
-            <!-- content end -->
-        </div>
-        <!-- scroller end -->
+            <div class="profile-info">
+                <div class="input-container">
+                    <label for="name" class="title-2xl">Username</label>
+                    <div class="box">
+                        <input type="text" hidden name="name" value="{{userName}}">
+                        <input id="name" disabled  type="text" value="{{userName}}">
+                </div>
+                <div class="input-container">
+                    <label for="Email" class="title-2xl" >Email</label>
+                    <div class="box">
+                        <input id="Email" name="Email" type="email" value="{{ email }}">
+                        <button type="button" class="edit-btn"><img src="{% static 'images/icons/pen.svg' %}" alt="">
+                            edit</button>
+                    </div>
+                </div>
+                <!-- <div class="input-container">
+                    <label for="role" class="title-2xl">Role</label>
+                    <div class="box">
+                        <select id="role" name="role" required>
+                            <option value="customer">Customer</option>
+                            <option value="employee">Employee</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                </div> -->
+                <div class="input-container">
+                    <label for="Address" class="title-2xl">Address</label>
+                    <div class="box">
+                        <input id="Address" name="Address" type="text" value="{{ address }}">
+                        <button  type="button" class="edit-btn"><img src="{% static 'images/icons/pen.svg' %}" alt="">
+                            edit</button>
+                    </div>
+                </div>
+                <div class="input-container">
+                    <label for="phone" class="title-2xl">Contact No.</label>
+                    <div class="box">
+                        <input id="phone" name="phone" type="number" value="{{ contect }}">
+                        <button type="button" class="edit-btn"><img src="{% static 'images/icons/pen.svg' %}" alt="">
+                            edit</button>
+                    </div>
+                </div>
+                <div class="input-container">
+                    <label for="Balance" class="title-2xl">Account Balance</label>
+                    <div class="box">
+                        <input id="Balance" name="Balance" type="number" value="{{ balance }}" readonly required>
+                        <button type="button" disabled class="edit-btn add-btn">
+                            <img src="{% static 'images/icons/wallet.svg' %}" alt="">
+                            Add
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" class="link-bg">Submit</button>
+                <br>
+            </div>
+        </form>
     </div>
-    <!-- wrapper end -->
+</div>
+{% endblock 'body' %}
 
 
-    <!-- external scripts (cdns) -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fontfaceobserver/2.3.0/fontfaceobserver.min.js"
-        integrity="sha512-7g/mtWY/pF5yAwrcHhRBBrDK3Tr1Xbjaweymp5/jiEmKJurJkRfi5grW5mKQx78wPRoQPOu1zfeWdJtsCw8QsQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.jsdelivr.net/npm/textify.js@3.0.1/dist/Textify.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
-        integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+{% block 'jsBlock' %}
+<!-- external scripts (cdns) -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fontfaceobserver/2.3.0/fontfaceobserver.min.js"
+    integrity="sha512-7g/mtWY/pF5yAwrcHhRBBrDK3Tr1Xbjaweymp5/jiEmKJurJkRfi5grW5mKQx78wPRoQPOu1zfeWdJtsCw8QsQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/textify.js@3.0.1/dist/Textify.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
+    integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
-    <!-- inner scripts -->
-    <script src="./js/index.js"></script>
-    <script src="./js/profile.js"></script>
-    <script src="./js/global.js"></script>
-
-</body>
-
-</html>
+<!-- inner scripts -->
+<script src="{% static 'js/profile.js' %}"></script>
+{% endblock 'jsBlock' %}

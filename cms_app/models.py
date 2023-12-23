@@ -1,3 +1,4 @@
+from email.policy import default
 import os
 from typing import Any
 from uuid import uuid1
@@ -31,38 +32,41 @@ class CMSUser(models.Model):
 
 
 
+class Cart(models.Model):
+    # cart_ID=models.AutoField(auto_created=True,unique=True)
+    owner=models.ForeignKey(CMSUser,on_delete=models.CASCADE)
+    # products: list[type[Product]]=[]
+    is_buyed=models.BooleanField(default=False)
+    cart_making_date=models.DateTimeField(auto_now_add=True)
+    buying_date=models.DateTimeField(null=True,default=None)
+    total_prize=models.PositiveIntegerField(default=0)
+
+    # def add_product(self,product:Product):
+    #     self.products.append(product)
+    #     self.total_prize+=product.prize
+    #     self.save()
+
+    # def delete_product(self,product:Product):
+    #     self.products.remove(product)
+    #     self.total_prize-=product.prize
+    #     self.save()
+    
 class Product(models.Model):
     # pID=models.AutoField(auto_created=True,unique=True)
     name=models.CharField(max_length=100)
+    isCopy=models.BooleanField()
     img=models.ImageField(upload_to=upload_product_path,null=True)
     prize=models.PositiveIntegerField(default=0)
     discription=models.TextField(default="")
     quntity=models.PositiveSmallIntegerField(default=0)
+    cart=models.ForeignKey(Cart,on_delete=models.CASCADE,default=None,null=True)
     added_datetime=models.DateTimeField(auto_now_add=True)
 
-    def delete(self, using: Any = ..., keep_parents: bool = ...) -> tuple[int, dict[str, int]]:
-        self.img.storage.delete(self.img.name)
-        return super().delete(using, keep_parents)
-class Cart(models.Model):
-    # cart_ID=models.AutoField(auto_created=True,unique=True)
-    owner=models.ForeignKey(CMSUser,on_delete=models.DO_NOTHING)
-    products: list[type[Product]]=[]
-    is_buyed=models.BooleanField(default=False)
-    cart_making_date=models.DateTimeField(auto_now_add=True)
-    buying_date=models.DateTimeField(null=True)
-    total_prize=models.PositiveIntegerField(default=0)
 
-    def add_product(self,product:Product):
-        self.products.append(product)
-        self.total_prize+=product.prize
-
-    def delete_product(self,product:Product):
-        self.products.remove(product)
-        self.total_prize-=product.prize
     
 class Order(models.Model):
     # order_id=models.AutoField(auto_created=True,unique=True)
-    buyer=models.ForeignKey(CMSUser,related_name="Customer",on_delete=models.DO_NOTHING)
+    buyer=models.ForeignKey(CMSUser,related_name="Customer",on_delete=models.CASCADE)
     validator_employee=models.ForeignKey(CMSUser,related_name="validatore",on_delete=models.DO_NOTHING)
     cart=models.ForeignKey(Cart,on_delete=models.CASCADE)
     total_prize=models.PositiveIntegerField(default=0)

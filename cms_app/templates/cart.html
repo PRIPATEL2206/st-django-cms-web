@@ -1,13 +1,14 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Cart</title>
 
     <!-- styles -->
-    <link rel="stylesheet" as="preload" href="./dist/index.css">
+    <link rel="stylesheet" as="preload" href="{% static 'dist/index.css' %}">
 
     <!-- extra -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
@@ -15,13 +16,48 @@
 </head>
 
 <body>
-    <!-- navigation bar start -->
-    <nav class="navigation"></nav>
-    <!-- navigation bar end -->
+    <nav class="navigation">
+        <div class="container">
+            <div class="navigation-box">
+                <a href="{% url 'home' %}" class="logo">
+                    <img src="{% static 'images/icons/logo.svg' %}" alt="" class="logo-image">
+                </a>
+                <div class="navigation-links">
+                    <a href="{% url 'profile' %}" class="link">Profile</a>
+                    <a href="/admin.html" class="link">Admin</a>
+                    <a href="{% url 'addProduct' %}" class="link">Add Product</a>
+                </div>
+            </div>
+            <div class="navigation-box">
+                <a href="{% url 'cart' %}" class="link cart-link">Cart <img src="{% static 'images/icons/cart.svg' %}"
+                        alt=""></a>
+                <a href="{% url 'login' %}" class="link sign-in">
+                    Sign In <img src="{% static 'images/icons/right-arrow.svg' %}" alt="arrow" class="icon">
+                </a>
+            </div>
+            <button class="hamb-btn">
+                <div class="divider"></div>
+                <div class="divider"></div>
+            </button>
+        </div>
+    </nav>
 
-    <!-- hamb burgermenu start -->
-    <div class="hamb-menu" style="display: none"></div>
-    <!-- hamb burgermenu end -->
+    <!-- nav end -->
+
+    <!-- hamburgar start -->
+    <div class="hamb-menu" style="display: none">
+        <ul class="hamb-list">
+            <a href="{% url 'profile' %}" class="hamb-link">Profile</a>
+            <a href="/admin.html" class="hamb-link">Admin</a>
+            <a href="{% url 'cart' %}" class="link cart-link">Cart <img src="{% static 'images/icons/cart.svg' %}"
+                    alt=""></a>
+            <a href="{% static " login" %}" class="hamb-link sign-in">
+                Sign In <img src="{% static 'images/icons/right-arrow.svg' %}" alt="arrow" class="icon">
+            </a>
+        </ul>
+    </div>
+
+    <!-- hamburgar end -->
 
     <!-- wrapper start -->
     <div class="wrapper" data-page="cart">
@@ -32,97 +68,43 @@
                 <div class="container">
                     <h1 class="title-5xl">Cart Items</h1>
                     <ul class="cart-list">
+                        {% for product  in products %}
                         <li class="cart-item">
                             <div class="action-btns">
+                                <a href="/removeFromCart/{{ product.id }}">
                                 <button class="remove-btn">
-                                    <img src="./assets/images/icons/cross.svg" alt="x">
+                                    <img src="{% static 'images/icons/cross.svg' %}" alt="x">
                                 </button>
-                                <button class="like-btn">
+                            </a>
+                                <!-- <button class="like-btn">
                                     <svg width="144" height="123" viewBox="0 0 144 123" fill="rgba(0,0,0)"
                                         stroke="rgba(0,0,0)" xmlns="http://www.w3.org/2000/svg">
                                         <path
                                             d="M13.7285 72.1809L13.728 72.1804C5.28008 64.3254 0.5 53.3057 0.5 41.786V40.1567C0.5 20.7653 14.5259 4.23083 33.6634 1.04034C46.3293 -1.06816 59.2171 3.06569 68.2717 12.1095L71.6467 15.4806L72 15.8335L72.3533 15.4806L75.7283 12.1095C84.7829 3.06569 97.6707 -1.06816 110.337 1.04034C129.474 4.23083 143.5 20.7653 143.5 40.1567V41.786C143.5 53.3057 138.72 64.3254 130.272 72.1804L130.271 72.1809L79.4497 119.572C77.4332 121.452 74.7707 122.5 72 122.5C69.2293 122.5 66.5668 121.452 64.5503 119.572L13.7285 72.1809Z" />
                                     </svg>
-                                </button>
+                                </button> -->
                             </div>
                             <figure class="cart-figure">
-                                <img src="./assets/images/cheese.jpg" alt="cheese">
+                                <img src="{{ product.img.url }}" alt="cheese">
                             </figure>
                             <div class="cart-details">
-                                <h1 class="title-3xl">Cheese</h1>
+                                <h1 class="title-3xl">{{ product.name }}</h1>
                             </div>
                             <div class="cart-quantity">
                                 <button class="increament">+</button>
-                                <span>1</span>
+                                <span>{{ product.quntity }}</span>
                                 <button class="increament">-</button>
                             </div>
                             <span class="cart-price">
-                                &#8377; 200
+                                &#8377; {{ product.prize }}
                             </span>
                         </li>
-
-                        <li class="cart-item">
-                            <div class="action-btns">
-                                <button class="remove-btn">
-                                    <img src="./assets/images/icons/cross.svg" alt="x">
-                                </button>
-                                <button class="like-btn">
-                                    <svg width="144" height="123" viewBox="0 0 144 123" fill="rgba(0,0,0)"
-                                        stroke="rgba(0,0,0)" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M13.7285 72.1809L13.728 72.1804C5.28008 64.3254 0.5 53.3057 0.5 41.786V40.1567C0.5 20.7653 14.5259 4.23083 33.6634 1.04034C46.3293 -1.06816 59.2171 3.06569 68.2717 12.1095L71.6467 15.4806L72 15.8335L72.3533 15.4806L75.7283 12.1095C84.7829 3.06569 97.6707 -1.06816 110.337 1.04034C129.474 4.23083 143.5 20.7653 143.5 40.1567V41.786C143.5 53.3057 138.72 64.3254 130.272 72.1804L130.271 72.1809L79.4497 119.572C77.4332 121.452 74.7707 122.5 72 122.5C69.2293 122.5 66.5668 121.452 64.5503 119.572L13.7285 72.1809Z" />
-                                    </svg>
-                                </button>
-                            </div>
-                            <figure class="cart-figure">
-                                <img src="./assets/images/daal.jpg" alt="cheese">
-                            </figure>
-                            <div class="cart-details">
-                                <h1 class="title-3xl">Daal</h1>
-                            </div>
-                            <div class="cart-quantity">
-                                <button class="increament">+</button>
-                                <span>1</span>
-                                <button class="increament">-</button>
-                            </div>
-                            <div class="cart-price">
-                                &#8377; 200
-                            </div>
-                        </li>
-
-                        <li class="cart-item">
-                            <div class="action-btns">
-                                <button class="remove-btn">
-                                    <img src="./assets/images/icons/cross.svg" alt="x">
-                                </button>
-                                <button class="like-btn">
-                                    <svg width="144" height="123" viewBox="0 0 144 123" fill="rgba(0,0,0)"
-                                        stroke="rgba(0,0,0)" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M13.7285 72.1809L13.728 72.1804C5.28008 64.3254 0.5 53.3057 0.5 41.786V40.1567C0.5 20.7653 14.5259 4.23083 33.6634 1.04034C46.3293 -1.06816 59.2171 3.06569 68.2717 12.1095L71.6467 15.4806L72 15.8335L72.3533 15.4806L75.7283 12.1095C84.7829 3.06569 97.6707 -1.06816 110.337 1.04034C129.474 4.23083 143.5 20.7653 143.5 40.1567V41.786C143.5 53.3057 138.72 64.3254 130.272 72.1804L130.271 72.1809L79.4497 119.572C77.4332 121.452 74.7707 122.5 72 122.5C69.2293 122.5 66.5668 121.452 64.5503 119.572L13.7285 72.1809Z" />
-                                    </svg>
-                                </button>
-                            </div>
-                            <figure class="cart-figure">
-                                <img src="./assets/images/salt.jpg" alt="salt">
-                            </figure>
-                            <div class="cart-details">
-                                <h1 class="title-3xl">Salt</h1>
-                            </div>
-                            <div class="cart-quantity">
-                                <button class="increament">+</button>
-                                <span>1</span>
-                                <button class="increament">-</button>
-                            </div>
-                            <div class="cart-price">
-                                &#8377; 200
-                            </div>
-                        </li>
-
+                        {% endfor %}
+                       
                         <li class="cart-item">
                             <h2 class="title-3xl">Total Amount</h2>
                             <div class="stack">
-                                <div class="cart-price">&#8377; 600</div>
+                                <div class="cart-price">&#8377; {{ cart.total_prize }}</div>
                                 <a href="#" class="link-bg">Buy Now</a>
                             </div>
                         </li>
@@ -130,7 +112,46 @@
                 </div>
             </div>
 
-            <footer class="footer"></footer>
+            <footer class="footer">
+                <div class="container">
+                    <div class="footer-content">
+                        <div class="footer-box">
+                            <a href="{% url 'home' %}" class="logo">
+                                <img src="{% static 'images/icons/logo.svg' %}" alt="logo" class="logo-image">
+                            </a>
+                            <div class="footer-box-content">
+                                <p cl ass="paragraph-md"><a href="tel:+01 292 4411" class="animated-link">T: 01 292
+                                        4411</a></p>
+                                <p class="paragraph-md"><a href="mailto:info@newkey.ie" class="animated-link">E:
+                                        info@newkey.ie</a></p>
+                                <p class="paragraph-sm">Unit 29, Southgate, Dublin road, <br />
+                                    Drogheda, Co.Meath</p>
+                            </div>
+                        </div>
+                        <div class="footer-box-2">
+                            <div class="footer-list">
+                                <a href="/about.html" class="link">About</a>
+                                <a href="/projects.html" class="link">Projects</a>
+                                <a href="/investor.html" class="link">Investing</a>
+                                <a href="/contact.html" class="link">Contact</a>
+                            </div>
+                            <div class="footer-list">
+                                <a href="{% url 'login' %}" class="link sign-in">Sign In <img
+                                        src="{% static 'images/icons/right-arrow.svg' %}" alt="arrow" class="icon"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-panel">
+                        <p class="paragraph-xs">
+                            copyright 2023 NewKey Homes | All rights Reserved | <a href="/privacy.html"
+                                class="animated-link">Privacy&nbsp;Policy</a>
+                        </p>
+                        <p class="paragraph-xs">
+                            <a href="{% url 'home' %}" class="animated-link">Crafted</a>
+                        </p>
+                    </div>
+                </div>
+            </footer>
             <!-- content end -->
         </div>
         <!-- scroller end -->
@@ -152,9 +173,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
     <!-- inner scripts -->
-    <script src="./js/index.js"></script>
-    <script src="./js/cart.js"></script>
-    <script src="./js/global.js"></script>
+    <script src="{% static 'js/cart.js' %}"></script>
+    <script src="{% static 'js/global.js' %}"></script>
 </body>
 
 </html>
