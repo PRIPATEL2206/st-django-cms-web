@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="products">
-                    {% for product in products %}   
+                    {% for product in products %}
                     <div class="product">
                         <figure class="product-figure">
                             <img src="{{product.img.url}}" alt="" />
@@ -50,11 +50,11 @@
                                 <p class="paragraph-md bold">Price :</p>
                                 <p class="paragraph-md">&#8377; {{product.prize}}</p>
                             </div>
-                            
+
                         </div>
                     </div>
                     {% endfor %}
-                    
+
                 </div>
                 <div class="order-details details-box">
                     <h2 class="title-2xl">Order Details</h2>
@@ -66,11 +66,17 @@
                         <p class="paragraph-md bold">Total Price :</p>
                         <p class="paragraph-md">&#8377; {{order.total_prize}}</p>
                     </div>
-                    
+
                 </div>
                 <div class="order-btn">
-                   <a href="aproveOrder/{{order.id}}"> <button class="link-bg btn-2">Approve</button></a>
-                   <a href="discardOrder/{{order.id}}"> <button class="link-bg">Discard</button></a>
+                    {% if order.status_code == 0 %}
+                    <a href="discardOrder/{{order.id}}"> <button class="link-bg">Discard</button></a>
+                    <a href="aproveOrder/{{order.id}}"> <button class="link-bg btn-2">Approve</button></a>
+                    {% elif order.status_code == 1 %}
+                    <a href="shiping/{{order.id}}"> <button class="link-bg btn-2">shiped</button></a>
+                    {% elif order.status_code == 2 %}
+                    <a href="delivred/{{order.id}}"> <button class="link-bg btn-2">Delived</button></a>
+                    {% endif %}
                 </div>
             </div>
         </div>

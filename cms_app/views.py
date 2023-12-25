@@ -10,47 +10,120 @@ from cms_app.models import ROLES
 
 @login_required(login_url="/login",redirect_field_name="home")
 def index(request:HttpRequest):
+    cmsUser=CMSUser.objects.get(user=request.user)
+
     products=Product.objects.filter(isCopy=False),
     numberOfProductPerPage=12
 
     context={
         "pages":products[i:i+numberOfProductPerPage] for i in range(0,len(products),numberOfProductPerPage)
     }
+    context["roleId"]=cmsUser.role_ID
     print("length of pages = ",len(context["pages"]))
     print("length of pages = ",len(context["pages"][0]))
     # print(context["pages"][0][0])
     return render(request=request,template_name="index.html",context=context)
 
+@login_required(login_url="/login",redirect_field_name="admin")
+def dashBord(request:HttpRequest):
+    cmsUser=CMSUser.objects.get(user=request.user)
+    if cmsUser.role_ID != 3:
+        return redirect("/")
+    monthTextMap={
+        1:"Jan",
+        2:"Fab",
+        3:"Mar",
+        4:"Apr",
+        5:"May",
+        6:"Jun",
+        7:"Jul",
+    8:"Aug",
+        9:"Sep",
+        10:"Oct",
+        11:"Nav",
+        12:"Dec",
+    }
+    monthList= list(range(1,13))
+
+    #today date
+    todayDate=datetime.now()
+
+    #productwise salse
+    unicProucts=Product.objects.filter(isCopy=False)
+    itemWiseSalse={
+        "lable":[pro.name for pro in unicProucts],
+        "data":[sum([(pro.prize*pro.quntity) for pro in Product.objects.filter(isCopy=True,name=uPro.name) if pro.cart and pro.cart.is_buyed]) for uPro in unicProucts],
+    }
+    # customer wise selse
+
+    customers=CMSUser.objects.all()
+    customerWiseSalse={
+        "lable":[customer.id for customer in customers],
+        "data":[sum([cart.total_prize for cart in Cart.objects.filter(owner=cmsUser,is_buyed=True)]) for cmsUser in customers]
+    }
+
+    #yearly salse
+    yearlySalse={
+        "lable":[i for i in range(todayDate.year-9,todayDate.year+1)],
+        "data":[sum([cart.total_prize for cart in Cart.objects.filter(is_buyed=True) if cart.buying_date.year==year]) for year in range(todayDate.year-9,todayDate.year+1)]
+    }
+
+    #monthly salse
+    months=monthList[:todayDate.month]
+    monthlySalse={
+        "lable":[ monthTextMap[i] for i in months],
+        "data":[sum([cart.total_prize for cart in Cart.objects.filter(is_buyed=True) if cart.buying_date.year==todayDate.year and cart.buying_date.month==month  ]) for month in months]
+    }
+
+    context={
+        "roleId":cmsUser.role_ID,
+        "dateTime":todayDate,
+        "itemWiseSalse":itemWiseSalse,
+        "customerWiseSalse":customerWiseSalse,
+        "yearlySalse":yearlySalse,
+        "monthlySalse":monthlySalse
+    }
+    print(context)
+        
+    return render(request=request,template_name="dashBord.html",context=context)
+
 @login_required(login_url="/login",redirect_field_name="home")
 def userPage(request:HttpRequest,u_id):
+    cmsUser=CMSUser.objects.get(id=u_id)
+    if CMSUser.objects.get(user=request.user).role_ID != 3:
+        return redirect("/")
+
     context={
-        "user":CMSUser.objects.get(id=u_id)
+        "user":cmsUser,
+        "roleId":CMSUser.objects.get(user=request.user).role_ID,
     }
     return render(request=request,template_name="user.html",context=context)
 
 @login_required(login_url="/login",redirect_field_name="home")
 def allUsersPage(request:HttpRequest):
+    cmsUser=CMSUser.objects.get(user=request.user)
+    if cmsUser.role_ID !=3:
+        return redirect("/")
     users=CMSUser.objects.all()
 
     context={
+        "roleId":CMSUser.objects.get(user=request.user).role_ID,
         "pages":[users[i:i+12] for i in range(0,len(users),12)]
     }
     return render(request=request,template_name='allUsers.html',context=context)
 
 @login_required(login_url="/login",redirect_field_name="home")
 def addEmployee(request:HttpRequest):
+    reqCmsUser=CMSUser.objects.get(user=request.user)
+    if reqCmsUser.role_ID !=3:
+        return redirect("/")
     if request.POST:
         post=request.POST
         userName=post.get("name")
         password=post.get("password")
-        User.objects.create_user(
+        user=User.objects.create_user(
             username=userName,email=post.get("Email"),password=password
         )
-        user= auth.authenticate(
-             request= request,username=userName,
-             password=password
-             )
-        auth.login(request=request,user=user)
         print(userName)
         cms_user=CMSUser(
             user=user,
@@ -62,8 +135,11 @@ def addEmployee(request:HttpRequest):
             email=post.get("Email")
         )
         cms_user.save()
+    context={
+        "roleId":CMSUser.objects.get(user=request.user).role_ID,
+    }
         
-    return render(request=request,template_name="addEmployee.html")
+    return render(request=request,template_name="addEmployee.html",context=context)
 
 @login_required(login_url="/login",redirect_field_name="cart")
 def buyCart(request:HttpRequest,c_id):
@@ -87,30 +163,67 @@ def buyCart(request:HttpRequest,c_id):
             remark=""
         )
         order.save()
-
-    return redirect('/cart')
+    context={
+        "roleId":CMSUser.objects.get(user=request.user).role_ID,
+    }
+    return redirect('/cart',context=context)
 
 @login_required(login_url="/login",redirect_field_name="OrderToAprove")
 def aproveOrder(request:HttpRequest,o_id):
-    print("aprove")
+    cmsUser=CMSUser.objects.get(user=request.user)
+    if cmsUser.role_ID!=2:
+        return redirect("/")
     order=Order.objects.get(id=o_id)
     order.status="Aproved"
     order.status_code=1
     order.save()
-    return redirect("/ordersToAprove")
+    return redirect("/ordersToAprove/"+str(o_id))
+
+@login_required(login_url="/login",redirect_field_name="OrderToAprove")
+def shiping(request:HttpRequest,o_id):
+    cmsUser=CMSUser.objects.get(user=request.user)
+    if cmsUser.role_ID!=2:
+        return redirect("/")
+    order=Order.objects.get(id=o_id)
+    if order.status_code == 1:
+        order.status="shiped to delivery"
+        order.status_code=2
+        order.save()
+    return redirect("/ordersToAprove/"+str(o_id))
+
+@login_required(login_url="/login",redirect_field_name="OrderToAprove")
+def delivered(request:HttpRequest,o_id):
+    cmsUser=CMSUser.objects.get(user=request.user)
+    if cmsUser.role_ID!=2:
+        return redirect("/")
+    order=Order.objects.get(id=o_id)
+    if order.status_code == 2:
+        order.status="delivered"
+        order.status_code=10
+        order.save()
+    return redirect("/ordersToAprove/"+str(o_id))
 
 @login_required(login_url="/login",redirect_field_name="OrderToAprove")
 def discardOrder(request:HttpRequest,o_id):
+    cmsUser=CMSUser.objects.get(user=request.user)
+    if cmsUser.role_ID!=2:
+        return redirect("/")
     order=Order.objects.get(id=o_id)
     order.status="Discarded"
     order.status_code=3
+    order.buyer.balance+=order.total_prize
+    order.buyer.save()
     order.save()
     return redirect("/ordersToAprove")
 
 @login_required(login_url="/login",redirect_field_name="OrderToAprove")
 def orderAprovePage(request:HttpRequest,o_id):
+    cmsUser=CMSUser.objects.get(user=request.user)
+    if cmsUser.role_ID!=2:
+        return redirect("/")
     order=Order.objects.get(id=o_id)
     context={
+        "roleId":CMSUser.objects.get(user=request.user).role_ID,
         "order":order,
         "products":Product.objects.filter(cart=order.cart,isCopy=True),
     }
@@ -120,8 +233,12 @@ def orderAprovePage(request:HttpRequest,o_id):
 @login_required(login_url="/login",redirect_field_name="OrderToAprove")
 def ordersToAprove(request:HttpRequest):
     cmsUser=CMSUser.objects.get(user=request.user)
-    orders=Order.objects.filter(validator_employee=cmsUser,status_code=0)
+    if cmsUser.role_ID!=2:
+        return redirect("/")
+    cmsUser=CMSUser.objects.get(user=request.user)
+    orders=[order for order in Order.objects.filter(validator_employee=cmsUser) if order.status_code not in [3,10]]
     context={
+        "roleId":CMSUser.objects.get(user=request.user).role_ID,
         "orders":[
             {"order":order,"porducts":Product.objects.filter(cart=order.cart)}for order in orders
         ],
@@ -133,7 +250,8 @@ def myOrders(request:HttpRequest):
     cmsUser=CMSUser.objects.get(user=request.user)
     orders=Order.objects.filter(buyer=cmsUser)
     context={
-        "orders":[{"order":order,"products":Product.objects.filter(cart=order.cart)} for order in orders]
+        "roleId":CMSUser.objects.get(user=request.user).role_ID,
+        "orders":[{"order":order,"products":Product.objects.filter(cart=order.cart)} for order in orders][::-1]
     }
 
     print(len(context["orders"]))
@@ -142,6 +260,9 @@ def myOrders(request:HttpRequest):
 @login_required(login_url="/login",redirect_field_name="home")
 def removeFromCart(request:HttpRequest,p_id):
     pro=Product.objects.get(id=p_id,isCopy=True)
+    if request.user.username!=pro.cart.owner.user.username:
+        return redirect("/")
+    
     pro.cart.total_prize-=pro.prize*pro.quntity
     pro.cart.save()
     pro.delete()
@@ -151,6 +272,8 @@ def removeFromCart(request:HttpRequest,p_id):
 @login_required(login_url="/login",redirect_field_name="cart")
 def incrementProductQuntity(request:HttpRequest,p_id):
     product=Product.objects.get(id=p_id)
+    if request.user.username!=product.cart.owner.user.username:
+        return redirect("/")
     product.quntity+=1
     product.save()
     product.cart.total_prize+=product.prize
@@ -160,6 +283,8 @@ def incrementProductQuntity(request:HttpRequest,p_id):
 @login_required(login_url="/login",redirect_field_name="cart")
 def dicrementProductQuntity(request:HttpRequest,p_id):
     product=Product.objects.get(id=p_id)
+    if request.user.username!=product.cart.owner.user.username:
+        return redirect("/")
     if product.quntity!=0:
         product.cart.total_prize-=product.prize
         product.cart.save()
@@ -177,8 +302,9 @@ def cartPage(request:HttpRequest):
     else:
         userCart=userCart[0]
     context={
+        "roleId":CMSUser.objects.get(user=request.user).role_ID,
         "cart":userCart,
-        "products":Product.objects.filter(cart=userCart,isCopy=True)
+        "products":Product.objects.filter(cart=userCart,isCopy=True)[::-1]
     }
     # print(context)
     return render(request=request,template_name="cart.html",context=context)
@@ -210,6 +336,9 @@ def addToCart(request:HttpRequest,p_id):
 
 @login_required(login_url="/login",redirect_field_name="addProduct")
 def addProductPage(request:HttpRequest):
+    cmsUser=CMSUser.objects.get(user=request.user)
+    if cmsUser.role_ID !=3:
+        return redirect("/")
     if request.POST:
         try:
             post=request.POST
@@ -224,8 +353,10 @@ def addProductPage(request:HttpRequest):
             cms_product.save()
         except Exception as e:
             print(e)
-
-    return render(request=request,template_name="addProduct.html")
+    context={
+        "roleId":CMSUser.objects.get(user=request.user).role_ID,
+    }
+    return render(request=request,template_name="addProduct.html",context=context)
 
 @login_required(login_url="/login",redirect_field_name="profile")
 def updateProfile(request:HttpRequest):
@@ -249,7 +380,6 @@ def updateProfile(request:HttpRequest):
 
     except Exception as e:
         print(e)
-
     return redirect("/profile")
 
 @login_required(redirect_field_name="profile",login_url="/login")

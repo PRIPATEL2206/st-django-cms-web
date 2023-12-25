@@ -31,21 +31,31 @@
                 </a>
                 <div class="navigation-links">
                     <a href="{% url 'profile' %}" class="link">Profile </a>
-                    <a href="/admin.html" class="link">Admin</a>
+                    {% if roleId == 3 %}
+                    <a href="{% url 'dashBord' %}" class="link">Dashbord</a>
+                    {% endif %}
+                    {% if roleId == 3 %}
                     <a href="{% url 'addProduct' %}" class="link">Add Product</a>
-                    <a href="{% url 'addEmployee' %}" class="link">Add Emp</a>
+                    {% endif %}
+                    {% if roleId == 3 %}
+                    <a href="{% url 'addEmployee' %}" class="link">Add Employee</a>
+                    {% endif %}
+                    {% if roleId == 2 %}
                     <a href="{% url 'ordersToAprove' %}" class="link">Orders Aprovels</a>
+                    {% endif %}
                     <a href="{% url 'myOrders' %}" class="link">My Order</a>
+                    {% if roleId == 3 %}
                     <a href="{% url 'allUsers' %}" class="link">Users</a>
+                    {% endif %}
 
                 </div>
             </div>
             <div class="navigation-box">
                 <a href="{% url 'cart' %}" class="link cart-link">Cart <img src="{% static 'images/icons/cart.svg' %}"
                         alt=""></a>
-                <a href="{% url 'login' %}" class="link sign-in">
+                <!-- <a href="{% url 'login' %}" class="link sign-in">
                     Sign In <img src="{% static 'images/icons/right-arrow.svg' %}" alt="arrow" class="icon">
-                </a>
+                </a> -->
             </div>
             <button class="hamb-btn">
                 <div class="divider"></div>
@@ -60,12 +70,14 @@
     <div class="hamb-menu" style="display: none">
         <ul class="hamb-list">
             <a href="{% url 'profile' %}" class="hamb-link">Profile</a>
-            <a href="/admin.html" class="hamb-link">Admin</a>
+            {% if roleId == 3 %}
+            <a href="{% url 'dashBord' %}" class="hamb-link">Dashbord</a>
+            {% endif %}
             <a href="{% url 'cart' %}" class="link cart-link">Cart <img src="{% static 'images/icons/cart.svg' %}"
                     alt=""></a>
-            <a href="{% static " login" %}" class="hamb-link sign-in">
+            <!-- <a href="{% static 'login' %}" class="hamb-link sign-in">
                 Sign In <img src="{% static 'images/icons/right-arrow.svg' %}" alt="arrow" class="icon">
-            </a>
+            </a> -->
         </ul>
     </div>
 
@@ -83,6 +95,8 @@
             <div class="wrapper" data-page="add-employee">
             {% elif request.path == "/ordersToAprove/" %}
             <div class="wrapper" data-page="all-orders">
+            {% elif request.path == "/dashBord/" %}
+            <div class="wrapper" data-page="admin">
             {% elif request.path == "/allUsers/" %}
             <div class="wrapper" data-page="user-display">
             {% elif request.path == "/myOrders/" %}

@@ -15,9 +15,12 @@ urlpatterns = [
     path("myOrders/",view=views.myOrders,name="myOrders"),
     path("ordersToAprove/",view=views.ordersToAprove,name="ordersToAprove"),
     path("allUsers/",view=views.allUsersPage,name="allUsers"),
+    path("dashBord/",view=views.dashBord,name="dashBord"),
     path("user/<str:u_id>",view=views.userPage,name="user"),
     path("ordersToAprove/aproveOrder/<str:o_id>",view=views.aproveOrder,name="aproveOrder"),
     path("ordersToAprove/discardOrder/<str:o_id>",view=views.discardOrder,name="discardOrder"),
+    path("ordersToAprove/shiping/<str:o_id>",view=views.shiping,name="shiping"),
+    path("ordersToAprove/delivred/<str:o_id>",view=views.delivered,name="delivred"),
     path("ordersToAprove/<str:o_id>",view=views.orderAprovePage,name="orderAprovePage"),
 
     #add path 
