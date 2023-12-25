@@ -9,7 +9,6 @@ navBar.innerHTML = `
                 <img src="/assets/images/icons/logo.svg" alt="" class="logo-image">
             </a>
             <div class="navigation-links">
-                <a href="/profile.html" class="link">Profile</a>
                 <a href="/admin.html" class="link">Admin</a>
                 <a href="/addProduct.html" class="link">Add Product</a>
                 <a href="/addEmployee.html" class="link">Add Emp</a>
@@ -21,7 +20,10 @@ navBar.innerHTML = `
         <div class="navigation-box">
             <a href="/cart.html" class="link cart-link">Cart <img src="./assets/images/icons/cart.svg" alt=""></a>
             <a href="/login.html" class="link sign-in">
-                Sign In <img src="./assets/images/icons/right-arrow.svg" alt="arrow" class="icon">
+            Sign In <img src="./assets/images/icons/right-arrow.svg" alt="arrow" class="icon">
+            </a>
+            <a href="/profile.html" class="link profile-link">
+                <figure> <img src="./assets/images/icons/user.svg" alt=""> </figure> Profile
             </a>
         </div>
         <button class="hamb-btn">

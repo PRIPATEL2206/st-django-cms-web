@@ -58,21 +58,26 @@ def dashBord(request:HttpRequest):
 
     customers=CMSUser.objects.all()
     customerWiseSalse={
-        "lable":[customer.id for customer in customers],
+        "lable":[customer.user.username for customer in customers],
         "data":[sum([cart.total_prize for cart in Cart.objects.filter(owner=cmsUser,is_buyed=True)]) for cmsUser in customers]
     }
 
     #yearly salse
+    year_wise_salse=[sum([cart.total_prize for cart in Cart.objects.filter(is_buyed=True) if cart.buying_date.year==year]) for year in range(todayDate.year-9,todayDate.year+1)]
     yearlySalse={
         "lable":[i for i in range(todayDate.year-9,todayDate.year+1)],
-        "data":[sum([cart.total_prize for cart in Cart.objects.filter(is_buyed=True) if cart.buying_date.year==year]) for year in range(todayDate.year-9,todayDate.year+1)]
+        "data":year_wise_salse,
+        "total":sum(year_wise_salse),
+        "avarage_daily_salse":round(sum(year_wise_salse)/(10*12*30))
     }
 
     #monthly salse
     months=monthList[:todayDate.month]
+    month_wise_salse=[sum([cart.total_prize for cart in Cart.objects.filter(is_buyed=True) if cart.buying_date.year==todayDate.year and cart.buying_date.month==month  ]) for month in months]
     monthlySalse={
         "lable":[ monthTextMap[i] for i in months],
-        "data":[sum([cart.total_prize for cart in Cart.objects.filter(is_buyed=True) if cart.buying_date.year==todayDate.year and cart.buying_date.month==month  ]) for month in months]
+        "data":month_wise_salse,
+        "total":sum(month_wise_salse)
     }
 
     context={

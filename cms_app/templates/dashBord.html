@@ -9,142 +9,84 @@
 
 <section class="dashboard">
     <div class="container">
-        <div class="top-bar">
-            <div class="orders-card card">
-                <div class="time">
-                    <h2 class="title-3xl">08:29:03 AM</h2>
-                    <p class="paragraph-sm">Realtime Insights</p>
-                </div>
-                <div class="date">
-                    <h2 class="title-3xl">Today: <br /> 17th March 2023</h2>
-                </div>
-                <a href="#" class="link-bg">View Orders</a>
+        <div class="dashboard-item monthly">
+            <div class="tab-wrapper">
+                <button class="tab-btn active">Mothly</button>
+                <button class="tab-btn">Yearly</button>
             </div>
-            <div class="card-wrapper">
-                <div class="card overview-card">
-                    <div class="card-header">
-                        <h2 class="title-5xl">342</h2>
-                        <figure class="circle">
-                            <img src="{% static 'images/icons/right-arrow.svg' %}" alt="svg">
-                        </figure>
+            <div class="chart-wrapper">
+                <div class="card sales-card big-card">
+                    <div class="header">
+                        <h2 class="title-3xl">Monthly Sales</h2>
+                        <!-- <h2 class="title-2xl">Year : 2023</h2> -->
                     </div>
-                    <div class="card-content">
-                        <p class="paragraph-md">Total Orders</p>
-                        <div class="info">
-                            <figure class="circle">
-                                <img src="{% static 'images/icons/right-arrow.svg' %}" alt="svg">
-                            </figure>
-                            <p class="paragraph-sm">2 new employee</p>
-                        </div>
+                    <div class="chart">
+                        <canvas id="monthly-chart"></canvas>
                     </div>
                 </div>
-                <div class="card overview-card">
-                    <div class="card-header">
-                        <h2 class="title-5xl">342</h2>
-                        <figure class="circle">
-                            <img src="{% static 'images/icons/right-arrow.svg' %}" alt="svg">
-                        </figure>
+                <div class="card info-card">
+                    <div class="header">
+                        <h2 class="title-3xl">Total Income</h2>
                     </div>
-                    <div class="card-content">
-                        <p class="paragraph-md">Total Orders</p>
-                        <div class="info">
-                            <figure class="circle">
-                                <img src="{% static 'images/icons/right-arrow.svg' %}" alt="svg">
-                            </figure>
-                            <p class="paragraph-sm">2 new employee</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card overview-card">
-                    <div class="card-header">
-                        <h2 class="title-5xl">342</h2>
-                        <figure class="circle">
-                            <img src="{% static 'images/icons/right-arrow.svg' %}" alt="svg">
-                        </figure>
-                    </div>
-                    <div class="card-content">
-                        <p class="paragraph-md">Total Orders</p>
-                        <div class="info">
-                            <figure class="circle">
-                                <img src="{% static 'images/icons/right-arrow.svg' %}" alt="svg">
-                            </figure>
-                            <p class="paragraph-sm">2 new employee</p>
-                        </div>
+                    <div class="card-details">
+                        <p class="paragraph-md"><span class="bold">Yearly Income :</span> <br />
+                            &#8377;{{yearlySalse.total}}
+                        </p>
+                        <p class="paragraph-md"><span class="bold">Monthly Income :</span> <br />
+                            &#8377;{{monthlySalse.total}}
+                        </p>
+                        <p class="paragraph-md"><span class="bold">Average Daily Income :</span> <br />
+                            &#8377;{{yearlySalse.avarage_daily_salse}}
+                        </p>
                     </div>
                 </div>
-                <div class="card overview-card">
-                    <div class="card-header">
-                        <h2 class="title-5xl">342</h2>
-                        <figure class="circle">
-                            <img src="{% static 'images/icons/right-arrow.svg' %}" alt="svg">
-                        </figure>
+                <div class="yearly-card card small-card">
+                    <div class="header">
+                        <h2 class="title-3xl">Yearly Sales</h2>
                     </div>
-                    <div class="card-content">
-                        <p class="paragraph-md">Total Orders</p>
-                        <div class="info">
-                            <figure class="circle">
-                                <img src="{% static 'images/icons/right-arrow.svg' %}" alt="svg">
-                            </figure>
-                            <p class="paragraph-sm">2 new employee</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card overview-card">
-                    <div class="card-header">
-                        <h2 class="title-5xl">342</h2>
-                        <figure class="circle">
-                            <img src="{% static 'images/icons/right-arrow.svg' %}" alt="svg">
-                        </figure>
-                    </div>
-                    <div class="card-content">
-                        <p class="paragraph-md">Total Orders</p>
-                        <div class="info">
-                            <figure class="circle">
-                                <img src="{% static 'images/icons/right-arrow.svg' %}" alt="svg">
-                            </figure>
-                            <p class="paragraph-sm">2 new employee</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card overview-card">
-                    <div class="card-header">
-                        <h2 class="title-5xl">342</h2>
-                        <figure class="circle">
-                            <img src="{% static 'images/icons/right-arrow.svg' %}" alt="svg">
-                        </figure>
-                    </div>
-                    <div class="card-content">
-                        <p class="paragraph-md">Total Orders</p>
-                        <div class="info">
-                            <figure class="circle">
-                                <img src="{% static 'images/icons/right-arrow.svg' %}" alt="svg">
-                            </figure>
-                            <p class="paragraph-sm">2 new employee</p>
-                        </div>
+                    <div class="chart">
+                        <canvas id="yearly-chart"></canvas>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="bottom">
-            <div class="sales-card card">
-                <div class="header">
-                    <h2 class="title-3xl">Sales Comparison Chart</h2>
-                    <div class="duration">
-                        <p class="title-2xl">Daily</p>
-                        <p class="title-2xl">Weekly</p>
-                        <p class="title-2xl">Monthly</p>
+        <div class="dashboard-item item">
+            <div class="tab-wrapper">
+                <button class="tab-btn active">Item-wise</button>
+                <button class="tab-btn">Customer-wise</button>
+            </div>
+            <div class="chart-wrapper">
+                <div class="card sales-card big-card">
+                    <div class="header">
+                        <h2 class="title-3xl">Item Sales</h2>
+                    </div>
+                    <div class="chart">
+                        <canvas id="items-chart"></canvas>
                     </div>
                 </div>
-                <div class="chart">
-                    <canvas id="sales-chart"></canvas>
+                <div class="card info-card">
+                    <div class="header">
+                        <h2 class="title-3xl">Total Sales</h2>
+                    </div>
+                    <div class="card-details">
+                        <p class="paragraph-md"><span class="bold">Yearly Sales :</span> <br />
+                            {{yearlySalse.total}}
+                        </p>
+                        <p class="paragraph-md"><span class="bold">Monthly Sales :</span> <br />
+                            {{monthlySalse.total}}
+                        </p>
+                        <p class="paragraph-md"><span class="bold">Average Daily Sales :</span> <br />
+                            {{yearlySalse.avarage_daily_salse}}
+                        </p>
+                    </div>
                 </div>
-            </div>
-            <div class="weekly-card card">
-                <div class="header">
-                    <h2 class="title-3xl">Weekly Sales</h2>
-                </div>
-                <div class="chart">
-                    <canvas id="weekly-chart"></canvas>
+                <div class="yearly-card card small-card">
+                    <div class="header">
+                        <h2 class="title-3xl">Customer Sales</h2>
+                    </div>
+                    <div class="chart">
+                        <canvas id="customer-chart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
@@ -156,7 +98,6 @@
 {% endblock 'body' %}
 
 {% block 'jsBlock' %}
-
 
 <!-- external scripts (cdns) -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
@@ -172,23 +113,24 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
 <!-- inner scripts -->
-<!-- <script src="{% static 'js/admin.js' %}"></script> -->
-
+<script src="{% static 'js/admin.js' %}"></script>
 <script>
-    const weeklyChart = document.getElementById("weekly-chart")
-const salesChart = document.getElementById("sales-chart")
+    const monthlyChart = document.getElementById("monthly-chart")
+    const yearlyChart = document.getElementById("yearly-chart")
+    const itemsChart = document.getElementById("items-chart")
+    const customerChart = document.getElementById("customer-chart")
 
-new Chart(weeklyChart, {
-    type: "bar",
-    data: {
-        labels: {{itemWiseSalse.lable | safe}},
-        datasets: [
-            {
-                label: "# of Votes",
-                data: {{itemWiseSalse.data }},
-                borderWidth: 1,
+    const iChart = new Chart(itemsChart, {
+        type: "bar",
+        data: {
+            labels: {{ itemWiseSalse.lable | safe }},
+    datasets: [
+        {
+            label: "# of salse",
+            data: {{ itemWiseSalse.data }},
+        borderWidth: 1,
             },
-        ],
+    ],
     },
     options: {
         scales: {
@@ -196,30 +138,82 @@ new Chart(weeklyChart, {
                 beginAtZero: true,
             },
         },
+        responsive: true,
+            maintainAspectRatio: false,
     },
 })
 
-new Chart(salesChart, {
-    type: "line",
-    data: {
-        labels:{{ yearlySalse.lable  }},
-        datasets: [
-            {
-                label: "# of yearly salse",
-                data:{{yearlySalse.data}},
-                borderWidth: 1,
+    const cChart = new Chart(customerChart, {
+        type: "bar",
+        data: {
+            labels: {{ customerWiseSalse.lable | safe }},
+    datasets: [
+        {
+            label: "# of Buying",
+            data: {{ customerWiseSalse.data }},
+        borderWidth: 1,
             },
-        ],
+    ],
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+            },
+        },
+
+        responsive: true,
+            maintainAspectRatio: false,
+    },
+})
+
+    const mChart = new Chart(monthlyChart, {
+        type: "line",
+        data: {
+            labels: {{ monthlySalse.lable | safe }},
+    datasets: [
+        {
+            label: "# monthly sales",
+            data: {{ monthlySalse.data }},
+        borderWidth: 1,
+            },
+    ],
     },
     options: {
         scales: {
             y: {
                 type: "linear",
-                grace: "20%",
-                beginAtZero: true,
+                    grace: "20%",
+                        beginAtZero: true,
             },
         },
-        aspectRatio: 5 / 1,
+        responsive: true,
+            maintainAspectRatio: false,
+    },
+})
+
+    const yChart = new Chart(yearlyChart, {
+        type: "line",
+        data: {
+            labels: {{ yearlySalse.lable }},
+    datasets: [
+        {
+            label: "# yearly sales",
+            data: {{ yearlySalse.data }},
+        borderWidth: 1,
+            },
+    ],
+    },
+    options: {
+        scales: {
+            y: {
+                type: "linear",
+                    grace: "20%",
+                        beginAtZero: true,
+            },
+        },
+        responsive: true,
+            maintainAspectRatio: false,
     },
 })
 

@@ -30,7 +30,6 @@
                     <img src="{% static 'images/icons/logo.svg' %}" alt="" class="logo-image">
                 </a>
                 <div class="navigation-links">
-                    <a href="{% url 'profile' %}" class="link">Profile </a>
                     {% if roleId == 3 %}
                     <a href="{% url 'dashBord' %}" class="link">Dashbord</a>
                     {% endif %}
@@ -56,6 +55,9 @@
                 <!-- <a href="{% url 'login' %}" class="link sign-in">
                     Sign In <img src="{% static 'images/icons/right-arrow.svg' %}" alt="arrow" class="icon">
                 </a> -->
+                <a href="{% url 'profile' %}" class="link profile-link">
+                    <figure> <img src="{% static 'images/icons/user.svg' %}" alt=""> </figure> Profile
+                </a>
             </div>
             <button class="hamb-btn">
                 <div class="divider"></div>

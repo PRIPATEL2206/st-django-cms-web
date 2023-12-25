@@ -513,28 +513,28 @@ section {
     max-width: 90%;
   }
 }
-[data-page=cart] .hero .container .cart-list .cart-item, [data-page=admin] .dashboard .container .bottom .card .header, [data-page=admin] .dashboard .container .top-bar .overview-card .card-header, .form-page .container .form .profile-info .input-container .box, .footer .container .footer-panel, nav .container {
+[data-page=cart] .hero .container .cart-list .cart-item, .form-page .container .form .profile-info .input-container .box, .footer .container .footer-panel, nav .container {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
 }
 
-[data-page=admin] .dashboard .container .top-bar .overview-card .card-content .info, .form-page .container .form .profile-avatar .avatar-input-container label, .footer .container .footer-content .footer-box-2 .footer-list .sign-in, nav .container .sign-in, nav .container .navigation-box .navigation-links, nav .container .navigation-box {
+.form-page .container .form .profile-avatar .avatar-input-container label, .footer .container .footer-content .footer-box-2 .footer-list .sign-in, nav .container .sign-in, nav .container .navigation-box .navigation-links, nav .container .navigation-box {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
 }
 
-[data-page=cart] .hero .container .cart-list .cart-item .cart-quantity, [data-page=cart] .hero .container .cart-list .cart-item .action-btns {
+[data-page=cart] .hero .container .cart-list .cart-item .cart-quantity, [data-page=cart] .hero .container .cart-list .cart-item .action-btns, nav .container .profile-link {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
 }
 
-[data-page=user-display] .users .container .users-slider .user-card-wrapper, [data-page=admin] .dashboard .container .bottom .card .header .duration, [data-page=admin] .dashboard .container .bottom, [data-page=admin] .dashboard .container .top-bar .card-wrapper, [data-page=admin] .dashboard .container .top-bar, [data-page=home] .grocery .container .grocery-slider .grocery-card-wrapper, .order-detail-item .order-btn, .order-detail-item .details-box .detail, .order-detail-item .details-box, .order-detail-item .products, .popup .popup-box .btn-box, .form-page .container .form {
+[data-page=user-display] .users .container .users-slider .user-card-wrapper, [data-page=admin] .dashboard .container .dashboard-item .tab-wrapper, [data-page=home] .grocery .container .grocery-slider .grocery-card-wrapper, .order-detail-item .order-btn, .order-detail-item .details-box .detail, .order-detail-item .details-box, .order-detail-item .products, .popup .popup-box .btn-box, .form-page .container .form {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -548,7 +548,7 @@ section {
   justify-content: space-between;
 }
 
-[data-page=order] .orders .container, [data-page=my-orders] .orders .container .orders-details, [data-page=my-orders] .orders .container, [data-page=all-orders] .orders .container .orders-details, [data-page=all-orders] .orders .container, [data-page=cart] .hero .container .cart-list, .order-detail-item, .popup .popup-box, .form-page .container .form .profile-info, .form-page .container, .cta .cta-wrapper form .input-container, .user-card, .grocery-card .card-content, .input-container, .footer .container .footer-content .footer-box-2 .footer-list, .footer .container .footer-content .footer-box, .hamb-menu .hamb-list .accordian .accordian-content {
+[data-page=order] .orders .container, [data-page=my-orders] .orders .container .orders-details, [data-page=my-orders] .orders .container, [data-page=all-orders] .orders .container .orders-details, [data-page=all-orders] .orders .container, [data-page=cart] .hero .container .cart-list, [data-page=admin] .dashboard .container .dashboard-item .chart-wrapper .info-card .card-details, [data-page=admin] .dashboard .container .dashboard-item .chart-wrapper .card .header, [data-page=admin] .dashboard .container .dashboard-item, .order-detail-item, .popup .popup-box, .form-page .container .form .profile-info, .form-page .container, .cta .cta-wrapper form .input-container, .user-card, .grocery-card .card-content, .input-container, .footer .container .footer-content .footer-box-2 .footer-list, .footer .container .footer-content .footer-box, .hamb-menu .hamb-list .accordian .accordian-content {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -562,14 +562,14 @@ section {
   justify-content: flex-start;
 }
 
-[data-page=admin] .dashboard .container .top-bar .overview-card .card-content, [data-page=admin] .dashboard .container .card, [data-page=admin] .dashboard .container, .cta .cta-wrapper form, .cta .cta-wrapper {
+[data-page=admin] .dashboard .container .card, [data-page=admin] .dashboard .container, .cta .cta-wrapper form, .cta .cta-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
 }
 
-[data-page=admin] .dashboard .container .top-bar .overview-card .circle, [data-page=home] .grocery .container .grocery-title, .form-page .container .form .profile-avatar .avatar-input-container, .form-page .container .form .profile-avatar .profile-figure, .cta, .user-card .card-figure, .grocery-card .card-figure, .grocery-card, .hamb-menu .hamb-list, nav .container .hamb-btn {
+[data-page=home] .grocery .container .grocery-title, .form-page .container .form .profile-avatar .avatar-input-container, .form-page .container .form .profile-avatar .profile-figure, .cta, .user-card .card-figure, .grocery-card .card-figure, .grocery-card, .hamb-menu .hamb-list, nav .container .hamb-btn, nav .container .profile-link figure {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -639,6 +639,20 @@ nav .container .navigation-box .navigation-links .dropdown-wrapper .link {
 }
 nav .container .navigation-box .navigation-links .dropdown-wrapper .link img {
   width: 15px;
+}
+nav .container .profile-link {
+  gap: 1rem;
+}
+nav .container .profile-link figure {
+  background: #ffffff;
+  padding: 2px;
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+}
+nav .container .profile-link figure img {
+  width: 100%;
+  height: auto;
 }
 nav .container .sign-in {
   gap: 1rem;
@@ -1318,7 +1332,7 @@ nav .container .hamb-btn.active .divider:nth-child(2) {
   padding: 17rem 0 7rem 0;
 }
 [data-page=admin] .dashboard .container {
-  row-gap: 6rem;
+  row-gap: 10rem;
 }
 [data-page=admin] .dashboard .container .card {
   gap: 3rem;
@@ -1329,79 +1343,62 @@ nav .container .hamb-btn.active .divider:nth-child(2) {
 [data-page=admin] .dashboard .container .card > * {
   width: 100%;
 }
-[data-page=admin] .dashboard .container .top-bar {
-  gap: 4rem;
-  --width: 25%;
-}
-[data-page=admin] .dashboard .container .top-bar .orders-card {
-  flex-basis: var(--width);
-  width: var(--width);
+[data-page=admin] .dashboard .container .dashboard-item {
+  height: calc(0.85 * var(--vh, 1vh) * 100);
+  width: 100%;
   gap: 5rem;
 }
-[data-page=admin] .dashboard .container .top-bar .orders-card .time {
-  margin-top: 4rem;
-  color: #bebebe;
+[data-page=admin] .dashboard .container .dashboard-item .tab-wrapper {
+  gap: 2rem;
 }
-[data-page=admin] .dashboard .container .top-bar .orders-card .link-bg {
-  width: max-content;
+[data-page=admin] .dashboard .container .dashboard-item .tab-wrapper .tab-btn {
+  font-size: 2rem;
+  padding: 1rem 1.5rem;
+  background: #ffffff;
+  color: #cd5c08;
+  border: 1px solid #cd5c08;
+  border-radius: 2rem;
+  transition: all 0.2s ease-out;
 }
-[data-page=admin] .dashboard .container .top-bar .card-wrapper {
-  flex-basis: calc(var(--width) * 3);
-  width: calc(var(--width) * 3);
-  flex-wrap: wrap;
-  gap: 4rem;
+[data-page=admin] .dashboard .container .dashboard-item .tab-wrapper .tab-btn.active {
+  background: #cd5c08;
+  color: #ffffff;
 }
-[data-page=admin] .dashboard .container .top-bar .card-wrapper .card {
-  --width-card: calc((100% - 8rem) / 3);
-  flex-basis: var(--width-card);
-  width: var(--width-card);
-}
-[data-page=admin] .dashboard .container .top-bar .overview-card .card-header .title-5xl {
-  font-weight: 400;
-}
-[data-page=admin] .dashboard .container .top-bar .overview-card .card-content {
-  gap: 1rem;
-}
-[data-page=admin] .dashboard .container .top-bar .overview-card .card-content > * {
+[data-page=admin] .dashboard .container .dashboard-item .chart-wrapper {
+  position: relative;
+  height: 100%;
   width: 100%;
 }
-[data-page=admin] .dashboard .container .top-bar .overview-card .card-content .info {
+[data-page=admin] .dashboard .container .dashboard-item .chart-wrapper .card {
+  position: absolute;
+  left: 0;
+}
+[data-page=admin] .dashboard .container .dashboard-item .chart-wrapper .card .chart {
   width: 100%;
-  color: #bebebe;
-  gap: 1rem;
+  height: 80%;
 }
-[data-page=admin] .dashboard .container .top-bar .overview-card .card-content .info .circle {
-  --size: 3rem;
-}
-[data-page=admin] .dashboard .container .top-bar .overview-card .circle {
-  --size: 5rem;
-  background-color: #eeeeee;
-  width: var(--size);
-  height: var(--size);
-  padding: calc(var(--size) / 5);
-  border-radius: 50%;
-}
-[data-page=admin] .dashboard .container .top-bar .overview-card .circle img {
-  max-width: 100%;
-  height: auto;
-}
-[data-page=admin] .dashboard .container .bottom {
-  gap: 4rem;
-  width: 100%;
-}
-[data-page=admin] .dashboard .container .bottom .card .header .duration {
-  gap: 1.5rem;
-}
-[data-page=admin] .dashboard .container .bottom .card .chart {
-  width: 100%;
-}
-[data-page=admin] .dashboard .container .bottom .sales-card {
-  flex-basis: 70%;
+[data-page=admin] .dashboard .container .dashboard-item .chart-wrapper .big-card {
+  bottom: 0;
   width: 70%;
+  height: 100%;
 }
-[data-page=admin] .dashboard .container .bottom .weekly-card {
-  flex-basis: 30%;
-  width: 30%;
+[data-page=admin] .dashboard .container .dashboard-item .chart-wrapper .info-card {
+  top: 0;
+  width: 25%;
+  transform: translateX(300%);
+}
+[data-page=admin] .dashboard .container .dashboard-item .chart-wrapper .info-card .card-details {
+  gap: 1rem;
+}
+[data-page=admin] .dashboard .container .dashboard-item .chart-wrapper .info-card .card-details .bold {
+  font-weight: 500;
+}
+[data-page=admin] .dashboard .container .dashboard-item .chart-wrapper .small-card {
+  bottom: 0;
+  left: auto;
+  right: 0;
+  width: 25%;
+  height: 50%;
 }
 
 [data-page=cart] .hero {
