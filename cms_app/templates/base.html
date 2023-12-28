@@ -8,6 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block 'cssBlock' %}{% endblock 'cssBlock' %}
 
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicon/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'images/favicon/site.webmanifest' %}">
+
     <!-- styles -->
     <link rel="stylesheet" as="preload" href="{% static 'dist/index.css' %}">
 
@@ -32,11 +37,7 @@
                 <div class="navigation-links">
                     {% if roleId == 3 %}
                     <a href="{% url 'dashBord' %}" class="link">Dashbord</a>
-                    {% endif %}
-                    {% if roleId == 3 %}
                     <a href="{% url 'addProduct' %}" class="link">Add Product</a>
-                    {% endif %}
-                    {% if roleId == 3 %}
                     <a href="{% url 'addEmployee' %}" class="link">Add Employee</a>
                     {% endif %}
                     {% if roleId == 2 %}
@@ -50,12 +51,13 @@
                 </div>
             </div>
             <div class="navigation-box">
-                <a href="{% url 'cart' %}" class="link cart-link">Cart <img src="{% static 'images/icons/cart.svg' %}"
-                        alt=""></a>
+                <a href="{% url 'cart' %}" class="link link-with-img">Cart <img
+                        src="{% static 'images/icons/cart.svg' %}" alt=""></a>
+
                 <!-- <a href="{% url 'login' %}" class="link sign-in">
                     Sign In <img src="{% static 'images/icons/right-arrow.svg' %}" alt="arrow" class="icon">
                 </a> -->
-                <a href="{% url 'profile' %}" class="link profile-link">
+                <a href="{% url 'profile' %}" class="link link-with-img profile-link">
                     <figure> <img src="{% static 'images/icons/user.svg' %}" alt=""> </figure> Profile
                 </a>
             </div>
@@ -70,16 +72,36 @@
 
     <!-- hamburgar start -->
     <div class="hamb-menu" style="display: none">
-        <ul class="hamb-list">
+        <!-- <ul class="hamb-list">
             <a href="{% url 'profile' %}" class="hamb-link">Profile</a>
             {% if roleId == 3 %}
             <a href="{% url 'dashBord' %}" class="hamb-link">Dashbord</a>
             {% endif %}
             <a href="{% url 'cart' %}" class="link cart-link">Cart <img src="{% static 'images/icons/cart.svg' %}"
                     alt=""></a>
-            <!-- <a href="{% static 'login' %}" class="hamb-link sign-in">
-                Sign In <img src="{% static 'images/icons/right-arrow.svg' %}" alt="arrow" class="icon">
+
+        </ul> -->
+        <ul class="hamb-list">
+            {% if roleId == 3 %}
+            <a href="{% url 'dashBord' %}" class="link">Dashbord</a>
+            <a href="{% url 'addProduct' %}" class="link">Add Product</a>
+            <a href="{% url 'addEmployee' %}" class="link">Add Employee</a>
+            {% endif %}
+            {% if roleId == 2 %}
+            <a href="{% url 'ordersToAprove' %}" class="link">Orders Aprovels</a>
+            {% endif %}
+            <a href="{% url 'myOrders' %}" class="link">My Order</a>
+            {% if roleId == 3 %}
+            <a href="{% url 'allUsers' %}" class="link">Users</a>
+            {% endif %}
+            <a href="{% url 'cart' %}" class="link link-with-img">Cart <img src="{% static 'images/icons/cart.svg' %}"
+                    alt=""></a>
+            <!-- <a href="/login.html" class="link link-with-img">
+                Sign In <img src="./assets/images/icons/right-arrow.svg" alt="arrow" class="icon">
             </a> -->
+            <a href="{% url 'profile' %}" class="link link-with-img profile-link">
+                <figure> <img src="{% static 'images/icons/user.svg' %}" alt=""> </figure> Profile
+            </a>
         </ul>
     </div>
 
@@ -91,84 +113,107 @@
         <div class="wrapper" data-page="cart">
             {% elif request.path == "/profile/" %}
             <div class="wrapper" data-page="profile">
-            {% elif request.path == "/register/"%}
-            <div class="wrapper" data-page="register">
-            {% elif request.path == "/addEmployee/" %}
-            <div class="wrapper" data-page="add-employee">
-            {% elif request.path == "/ordersToAprove/" %}
-            <div class="wrapper" data-page="all-orders">
-            {% elif request.path == "/dashBord/" %}
-            <div class="wrapper" data-page="admin">
-            {% elif request.path == "/allUsers/" %}
-            <div class="wrapper" data-page="user-display">
-            {% elif request.path == "/myOrders/" %}
-            <div class="wrapper" data-page="my-orders">
-                {% else %}
-                <div class="wrapper" data-page="home">
-                    {% endif %}
-                    <!-- scroller start -->
-                    <div class="scroll-container">
-                        <!-- content start -->
+                {% elif request.path == "/register/"%}
+                <div class="wrapper" data-page="register">
+                    {% elif request.path == "/addEmployee/" %}
+                    <div class="wrapper" data-page="add-employee">
+                        {% elif request.path == "/ordersToAprove/" %}
+                        <div class="wrapper" data-page="all-orders">
+                            {% elif request.path == "/dashBord/" %}
+                            <div class="wrapper" data-page="admin">
+                                {% elif request.path == "/allUsers/" %}
+                                <div class="wrapper" data-page="user-display">
+                                    {% elif request.path == "/myOrders/" %}
+                                    <div class="wrapper" data-page="my-orders">
+                                        {% else %}
+                                        <div class="wrapper" data-page="home">
+                                            {% endif %}
+                                            <!-- scroller start -->
+                                            <div class="scroll-container">
+                                                <!-- content start -->
 
-                        {% block 'body' %}
-                        {% endblock 'body' %}
+                                                {% block 'body' %}
+                                                {% endblock 'body' %}
 
-                        <!-- footer start -->
-                        <footer class="footer">
-                            <div class="container">
-                                <div class="footer-content">
-                                    <div class="footer-box">
-                                        <a href="{% url 'home' %}" class="logo">
-                                            <img src="{% static 'images/icons/logo.svg' %}" alt="logo"
-                                                class="logo-image">
-                                        </a>
-                                        <div class="footer-box-content">
-                                            <p cl ass="paragraph-md"><a href="tel:+01 292 4411" class="animated-link">T:
-                                                    01
-                                                    292
-                                                    4411</a></p>
-                                            <p class="paragraph-md"><a href="mailto:info@newkey.ie"
-                                                    class="animated-link">E:
-                                                    info@newkey.ie</a></p>
-                                            <p class="paragraph-sm">Unit 29, Southgate, Dublin road, <br />
-                                                Drogheda, Co.Meath</p>
+                                                <!-- footer start -->
+                                                <footer class="footer">
+                                                    <div class="container">
+                                                        <div class="footer-content">
+                                                            <div class="footer-box">
+                                                                <a href="{% url 'home' %}" class="logo">
+                                                                    <img src="{% static 'images/icons/logo.svg' %}"
+                                                                        alt="logo" class="logo-image">
+                                                                </a>
+                                                            </div>
+                                                            <div class="footer-box-2">
+                                                                {% if roleId == 3 %}
+                                                                <div class="footer-list admin">
+                                                                    <a href="{% url 'addEmployee' %}" class="link">Add
+                                                                        Employee</a>
+                                                                    <a href="{% url 'addProduct' %}" class="link">Add
+                                                                        Product</a>
+                                                                    <a href="{% url 'dashBord' %}"
+                                                                        class="link">Dashboard</a>
+                                                                    <a href="{% url 'allUsers' %}"
+                                                                        class="link">Users</a>
+                                                                </div>
+                                                                {% endif %}
+                                                                {% if roleId == 2 %}
+                                                                <div class="footer-list employee">
+                                                                    <a href="{% url 'ordersToAprove' %}"
+                                                                        class="link">Orders Aprovels</a>
+                                                                </div>
+                                                                {% endif %}
+                                                                <div class="footer-list user">
+                                                                    <a href="{% url 'cart' %}"
+                                                                        class="link link-with-img">Cart <img
+                                                                            src="{% static 'images/icons/cart.svg' %}"
+                                                                            alt=""></a>
+                                                                    <a href="{% url 'myOrders' %}" class="link">My
+                                                                        Orders</a>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="footer-box-3">
+                                                                <div class="footer-list login">
+                                                                    <a href="{% url 'login' %}"
+                                                                        class="link link-with-img">Sign In <img
+                                                                            src="{% static 'images/icons/right-arrow.svg' %}"
+                                                                            alt="arrow" class="icon"></a>
+                                                                </div>
+                                                                <div class="footer-list logout">
+                                                                    <a href="{% url 'profile' %}"
+                                                                        class="link link-with-img profile-link">
+                                                                        <figure> <img
+                                                                                src="{% static 'images/icons/user.svg' %}"
+                                                                                alt=""> </figure> Profile
+                                                                    </a>
+                                                                    <a href="{% url 'logout' %}" class="link">Log
+                                                                        Out</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="footer-panel">
+                                                            <p class="paragraph-xs">
+                                                                copyright 2023 SARC | Sales And Relationship with
+                                                                Customers | All rights Reserved | Privacy Policy
+                                                            </p>
+                                                            <p class="paragraph-xs">
+                                                                Crafted By |
+                                                                <a href="https://github.com/PRIPATEL2206"
+                                                                    class="animated-link">PRIPATEL2206</a>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </footer>
+                                                <!-- footer end -->
+                                                <!-- content end -->
+                                            </div>
+                                            <!-- scroller end -->
                                         </div>
-                                    </div>
-                                    <div class="footer-box-2">
-                                        <div class="footer-list">
-                                            <a href="/about.html" class="link">About</a>
-                                            <a href="/projects.html" class="link">Projects</a>
-                                            <a href="/investor.html" class="link">Investing</a>
-                                            <a href="/contact.html" class="link">Contact</a>
-                                        </div>
-                                        <div class="footer-list">
-                                            <a href="{% url 'login' %}" class="link sign-in">Sign In <img
-                                                    src="{% static 'images/icons/right-arrow.svg' %}" alt="arrow"
-                                                    class="icon"></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="footer-panel">
-                                    <p class="paragraph-xs">
-                                        copyright 2023 NewKey Homes | All rights Reserved | <a href="/privacy.html"
-                                            class="animated-link">Privacy&nbsp;Policy</a>
-                                    </p>
-                                    <p class="paragraph-xs">
-                                        <a href="{% url 'home' %}" class="animated-link">Crafted</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </footer>
-                        <!-- footer end -->
-
-                        <!-- content end -->
-                    </div>
-                    <!-- scroller end -->
-                </div>
-                <!-- wrapper end -->
-                {% block 'jsBlock' %}{% endblock 'jsBlock' %}
-                <script src="{% static 'js/global.js' %}"></script>
-
+                                        <!-- wrapper end -->
+                                        {% block 'jsBlock' %}{% endblock 'jsBlock' %}
+                                        <script src="{% static 'js/global.js' %}"></script>
 </body>
 
 </html>

@@ -405,6 +405,11 @@ def profile(request:HttpRequest):
     }
     return render(request=request,template_name="profile.html",context=context)
 
+@login_required(login_url="/login",redirect_field_name="logout")
+def logout(request:HttpRequest):
+    auth.logout(request=request)
+    return redirect('/login')
+
 def login(request:HttpRequest):
     context={}
     if request.POST:

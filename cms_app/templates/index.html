@@ -8,7 +8,7 @@
 <section class="grocery">
     <div class="container">
         <h1 class="title-5xl grocery-title">Groceries</h1>
-        <img src="{% static 'images/icons/logo-2.svg' %}" alt="">
+        <!-- for leptop -->
         <div class="swiper grocery-slider">
             <div class="swiper-wrapper">
                 {% for page in pages %}
@@ -22,14 +22,41 @@
                             <h2 class="title-3xl">{{ product.name }}</h2>
                             <p class="paragraph-sm">{{ product.discription }}</p>
                             <span class="price">&#8377; {{ product.prize }}</span>
-                           <a class="cart" href='addToCart/{{product.id}}'> <button class="link-bg cart">Add to Cart</button></a>
+                            <a class="cart" href='addToCart/{{product.id}}'> <button class="link-bg cart">Add to
+                                    Cart</button></a>
                         </div>
                     </div>
                     {% endfor %}
-               
+
                 </div>
                 {% endfor %}
-               
+
+            </div>
+            <div class="slider-controls">
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+
+        <!-- for mobile -->
+        <div class="swiper mobile-grocery-slider">
+            <div class="swiper-wrapper">
+                {% for page in pages %}
+                <div class="grocery-card-wrapper swiper-slide">
+                    {% for product in page %}
+                    <div class="grocery-card">
+                        <figure class="card-figure">
+                            <img src="{{ product.img.url }}" alt="{{product.name}}">
+                        </figure>
+                        <div class="card-content">
+                            <h2 class="title-3xl">{{ product.name }}</h2>
+                            <p class="paragraph-sm">{{ product.discription }}</p>
+                            <span class="price">&#8377; {{ product.prize }}</span>
+                            <a class="cart" href='addToCart/{{product.id}}'> <button class="link-bg cart">Add to Cart</button></a>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                {% endfor %}
             </div>
             <div class="slider-controls">
                 <div class="swiper-pagination"></div>

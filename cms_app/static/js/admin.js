@@ -6,11 +6,11 @@
 // const iChart = new Chart(itemsChart, {
 //     type: "bar",
 //     data: {
-//         labels: {{itemWiseSalse.lable | safe}},
+//         labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
 //         datasets: [
 //             {
-//                 label: "# of salse",
-//                 data: {{itemWiseSalse.data }},
+//                 label: "# of Votes",
+//                 data: [12, 19, 3, 5, 2, 3],
 //                 borderWidth: 1,
 //             },
 //         ],
@@ -29,11 +29,11 @@
 // const cChart = new Chart(customerChart, {
 //     type: "bar",
 //     data: {
-//         labels: {{customerWiseSalse.lable | safe}},
+//         labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
 //         datasets: [
 //             {
-//                 label: "# of Buying",
-//                 data:{{customerWiseSalse.data }},
+//                 label: "# of Votes",
+//                 data: [12, 19, 3, 5, 2, 3],
 //                 borderWidth: 1,
 //             },
 //         ],
@@ -53,11 +53,24 @@
 // const mChart = new Chart(monthlyChart, {
 //     type: "line",
 //     data: {
-//         labels:{{ monthlySalse.lable  }},
+//         labels: [
+//             "January",
+//             "February",
+//             "March",
+//             "April",
+//             "May",
+//             "June",
+//             "January",
+//             "February",
+//             "March",
+//             "April",
+//             "May",
+//             "June",
+//         ],
 //         datasets: [
 //             {
 //                 label: "",
-//                 data: {{monthlySalse.data}},
+//                 data: [12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3],
 //                 borderWidth: 1,
 //             },
 //         ],
@@ -78,11 +91,11 @@
 // const yChart = new Chart(yearlyChart, {
 //     type: "line",
 //     data: {
-//         labels: {{ yearlySalse.lable  }},
+//         labels: [2000, 2000, 2000, 2000, 2000, 2000],
 //         datasets: [
 //             {
 //                 label: "",
-//                 data:{{yearlySalse.data}},
+//                 data: [12, 19, 3, 5, 2, 3],
 //                 borderWidth: 1,
 //             },
 //         ],
@@ -108,32 +121,36 @@ const arr = [
     ["item", "customer"],
 ]
 
+const mobile = window.innerWidth < 831
+
 tabs.forEach((tab, index) => {
     tab.addEventListener("click", () => {
         tab.classList.add("active")
         const num = Math.floor(index / 2)
-        let charts = []
-        if (index < 2) {
-            charts = [mChart, yChart]
-        } else {
-            charts = [iChart, cChart]
-        }
 
         if (index == 0 || index == 2) {
             tabs[index + 1].classList.remove("active")
             dashboards[num].classList.add(arr[num][0])
             dashboards[num].classList.remove(arr[num][1])
-            animateRight(dashboards[num], charts[0], charts[1])
+            if (!mobile) {
+                animateRight(dashboards[num])
+            } else {
+                mobileAnimationRight(dashboards[num])
+            }
         } else if (index == 1 || index == 3) {
             tabs[index - 1].classList.remove("active")
             dashboards[num].classList.add(arr[num][1])
             dashboards[num].classList.remove(arr[num][0])
-            animateLeft(dashboards[num], charts[0], charts[1])
+            if (!mobile) {
+                animateLeft(dashboards[num])
+            } else {
+                mobileAnimationLeft(dashboards[num])
+            }
         }
     })
 })
 
-function animateLeft(dashboard, lChart, rChart) {
+function animateLeft(dashboard) {
     const leftCard = dashboard.querySelector(".big-card")
     const infoCard = dashboard.querySelector(".info-card")
     const rightCard = dashboard.querySelector(".small-card")
@@ -162,7 +179,7 @@ function animateLeft(dashboard, lChart, rChart) {
     )
 }
 
-function animateRight(dashboard, lChart, rChart) {
+function animateRight(dashboard) {
     const leftCard = dashboard.querySelector(".big-card")
     const infoCard = dashboard.querySelector(".info-card")
     const rightCard = dashboard.querySelector(".small-card")
@@ -186,6 +203,42 @@ function animateRight(dashboard, lChart, rChart) {
             width: "70%",
             height: "100%",
             delay: 0.15,
+        },
+        0
+    )
+}
+
+function mobileAnimationLeft(dashboard) {
+    const leftCard = dashboard.querySelector(".big-card")
+    const rightCard = dashboard.querySelector(".small-card")
+    const tl = gsap.timeline({ ease: "ease.Power2()" })
+
+    tl.to(leftCard, {
+        x: "-120%",
+    })
+
+    tl.to(
+        rightCard,
+        {
+            x: 0,
+        },
+        0
+    )
+}
+
+function mobileAnimationRight(dashboard) {
+    const leftCard = dashboard.querySelector(".big-card")
+    const rightCard = dashboard.querySelector(".small-card")
+    const tl = gsap.timeline({ ease: "ease.Power2()" })
+
+    tl.to(leftCard, {
+        x: 0,
+    })
+
+    tl.to(
+        rightCard,
+        {
+            x: "120%",
         },
         0
     )
