@@ -19,7 +19,12 @@
                         <div class="user-card">
                             <span class="user-id">{{user.id}}</span>
                             <figure class="card-figure">
+                                {% if user.profile_img %}
                                 <img src="{{user.profile_img.url}}" alt="user">
+                                {% else %}
+                                <img src="{% static 'images/icons/user.svg' %}" alt="">
+                                {% endif %}
+
                             </figure>
                             <div class="card-content">
                                 <p class="paragraph-md">Username :</p>
@@ -47,7 +52,11 @@
                         <div class="user-card">
                             <span class="user-id">{{user.id}}</span>
                             <figure class="card-figure">
+                                {% if user.profile_img %}
                                 <img src="{{user.profile_img.url}}" alt="user">
+                                {% else %}
+                                <img src="{% static 'images/icons/user.svg' %}" alt="">
+                                {% endif %}
                             </figure>
                             <div class="card-content">
                                 <p class="paragraph-md">Username :</p>

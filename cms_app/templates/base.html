@@ -106,6 +106,9 @@
     </div>
 
     <!-- hamburgar end -->
+    {% for massage in messages %}
+    {% include 'components/snackBar.html' with text=massage %}
+    {% endfor %}
     <!-- wrapper start -->
     {% if request.path == "/addProduct/" %}
     <div class="wrapper" data-page="add-product">
@@ -194,9 +197,9 @@
                                                             </div>
                                                         </div>
                                                         <div class="footer-panel">
-                                                            <p class="paragraph-xs">
-                                                                copyright 2023 SARC | Sales And Relationship with
-                                                                Customers | All rights Reserved | Privacy Policy
+
+                                                            copyright 2023 SARC | Sales And Relationship with
+                                                            Customers | All rights Reserved | Privacy Policy
                                                             </p>
                                                             <p class="paragraph-xs">
                                                                 Crafted By |

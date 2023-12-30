@@ -12,7 +12,7 @@
         <form class="form">
             <div class="profile-avatar">
                 <figure class="profile-figure">
-                    {% if user.profile_img %}
+                    {% if user.profile_img  %}
                     <img src="{{user.profile_img.url}}" alt="" class="profile-img">
                     {% else %}
                     <img src="{% static 'images/icons/user.svg' %}" alt="" class="profile-img">

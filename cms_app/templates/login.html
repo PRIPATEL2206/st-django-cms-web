@@ -16,6 +16,9 @@
 </head>
 
 <body>
+    {% for massage in messages %}
+    {% include 'components/snackBar.html' with text=massage %}
+    {% endfor %}
     <!-- wrapper start -->
     <div class="wrapper" data-page="Login">
         <!-- scroller start -->
@@ -25,6 +28,7 @@
             <div class="cta">
                 <div class="cta-wrapper">
                     <h1 class="title-3xl">Sign-In</h1>
+                  
                     <form action="{% url 'login' %}" method="post">
                         {% csrf_token %}
                         <div class="input-container">
@@ -60,7 +64,8 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- inner scripts -->
-    <script src="{% static "js/global.js" %}"></script>
+    <script src="{% static 'js/global.js' %}"></script>
+
 </body>
 
 </html>

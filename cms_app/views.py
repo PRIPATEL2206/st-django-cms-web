@@ -3,7 +3,7 @@ import random
 from django.http import HttpRequest
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User 
-from django.contrib import auth
+from django.contrib import auth,messages
 from django.contrib.auth.decorators import login_required
 from cms_app.models import CMSUser, Cart, Order, Product
 from cms_app.models import ROLES
@@ -19,8 +19,8 @@ def index(request:HttpRequest):
         "pages":products[i:i+numberOfProductPerPage] for i in range(0,len(products),numberOfProductPerPage)
     }
     context["roleId"]=cmsUser.role_ID
-    print("length of pages = ",len(context["pages"]))
-    print("length of pages = ",len(context["pages"][0]))
+    print(messages.get_level(request=request))
+    # for msg in messages:
     # print(context["pages"][0][0])
     return render(request=request,template_name="index.html",context=context)
 
@@ -28,6 +28,7 @@ def index(request:HttpRequest):
 def dashBord(request:HttpRequest):
     cmsUser=CMSUser.objects.get(user=request.user)
     if cmsUser.role_ID != 3:
+        messages.error(request=request, message="you not have acsses to this page ")
         return redirect("/")
     monthTextMap={
         1:"Jan",
@@ -96,6 +97,7 @@ def dashBord(request:HttpRequest):
 def userPage(request:HttpRequest,u_id):
     cmsUser=CMSUser.objects.get(id=u_id)
     if CMSUser.objects.get(user=request.user).role_ID != 3:
+        messages.error(request=request, message="you not have acsses to this page ")
         return redirect("/")
 
     context={
@@ -108,9 +110,12 @@ def userPage(request:HttpRequest,u_id):
 def allUsersPage(request:HttpRequest):
     cmsUser=CMSUser.objects.get(user=request.user)
     if cmsUser.role_ID !=3:
+        messages.error(request=request, message="you not have acsses to this page ")
         return redirect("/")
     users=CMSUser.objects.all()
-
+    for user in users:
+        print(user.profile_img)
+    print("okE")
     context={
         "roleId":CMSUser.objects.get(user=request.user).role_ID,
         "pages":[users[i:i+12] for i in range(0,len(users),12)]
@@ -121,6 +126,7 @@ def allUsersPage(request:HttpRequest):
 def addEmployee(request:HttpRequest):
     reqCmsUser=CMSUser.objects.get(user=request.user)
     if reqCmsUser.role_ID !=3:
+        messages.error(request=request, message="you not have acsses to this page ")
         return redirect("/")
     if request.POST:
         post=request.POST
@@ -140,6 +146,7 @@ def addEmployee(request:HttpRequest):
             email=post.get("Email")
         )
         cms_user.save()
+        messages.success(request=request, message=str(user.username)+" added sucsessfully")
     context={
         "roleId":CMSUser.objects.get(user=request.user).role_ID,
     }
@@ -168,6 +175,10 @@ def buyCart(request:HttpRequest,c_id):
             remark=""
         )
         order.save()
+        messages.success(request=request, message="place order sucsessfully")
+    else:
+        messages.error(request=request, message="you not have acsses to this page ")
+
     context={
         "roleId":CMSUser.objects.get(user=request.user).role_ID,
     }
@@ -177,41 +188,49 @@ def buyCart(request:HttpRequest,c_id):
 def aproveOrder(request:HttpRequest,o_id):
     cmsUser=CMSUser.objects.get(user=request.user)
     if cmsUser.role_ID!=2:
+        messages.error(request=request, message="you not have acsses to this page ")
         return redirect("/")
     order=Order.objects.get(id=o_id)
     order.status="Aproved"
     order.status_code=1
     order.save()
+    messages.success(request=request, message="Order aproveed sucsessfully")
+
     return redirect("/ordersToAprove/"+str(o_id))
 
 @login_required(login_url="/login",redirect_field_name="OrderToAprove")
 def shiping(request:HttpRequest,o_id):
     cmsUser=CMSUser.objects.get(user=request.user)
     if cmsUser.role_ID!=2:
+        messages.error(request=request, message="you not have acsses to this page ")
         return redirect("/")
     order=Order.objects.get(id=o_id)
     if order.status_code == 1:
         order.status="shiped to delivery"
         order.status_code=2
         order.save()
+        messages.success(request=request, message="Order gose for shiping sucsessfully")
     return redirect("/ordersToAprove/"+str(o_id))
 
 @login_required(login_url="/login",redirect_field_name="OrderToAprove")
 def delivered(request:HttpRequest,o_id):
     cmsUser=CMSUser.objects.get(user=request.user)
     if cmsUser.role_ID!=2:
+        messages.error(request=request, message="you not have acsses to this page ")
         return redirect("/")
     order=Order.objects.get(id=o_id)
     if order.status_code == 2:
         order.status="delivered"
         order.status_code=10
         order.save()
+        messages.success(request=request, message="Order delivered sucsessfully")
     return redirect("/ordersToAprove/"+str(o_id))
 
 @login_required(login_url="/login",redirect_field_name="OrderToAprove")
 def discardOrder(request:HttpRequest,o_id):
     cmsUser=CMSUser.objects.get(user=request.user)
     if cmsUser.role_ID!=2:
+        messages.error(request=request, message="you not have acsses to this page ")
         return redirect("/")
     order=Order.objects.get(id=o_id)
     order.status="Discarded"
@@ -219,12 +238,15 @@ def discardOrder(request:HttpRequest,o_id):
     order.buyer.balance+=order.total_prize
     order.buyer.save()
     order.save()
+    messages.success(request=request, message="Order discarded sucsessfully")
+
     return redirect("/ordersToAprove")
 
 @login_required(login_url="/login",redirect_field_name="OrderToAprove")
 def orderAprovePage(request:HttpRequest,o_id):
     cmsUser=CMSUser.objects.get(user=request.user)
     if cmsUser.role_ID!=2:
+        messages.error(request=request, message="you not have acsses to this page ")
         return redirect("/")
     order=Order.objects.get(id=o_id)
     context={
@@ -266,18 +288,20 @@ def myOrders(request:HttpRequest):
 def removeFromCart(request:HttpRequest,p_id):
     pro=Product.objects.get(id=p_id,isCopy=True)
     if request.user.username!=pro.cart.owner.user.username:
+        messages.error(request=request, message="you are not owner of this product")
         return redirect("/")
-    
     pro.cart.total_prize-=pro.prize*pro.quntity
     pro.cart.save()
     pro.delete()
     print(pro)
+    messages.success(request=request, message=str(pro.name)+" remove from cart sucsessfully")
     return redirect("/cart")
 
 @login_required(login_url="/login",redirect_field_name="cart")
 def incrementProductQuntity(request:HttpRequest,p_id):
     product=Product.objects.get(id=p_id)
     if request.user.username!=product.cart.owner.user.username:
+        messages.error(request=request, message="you are not owner of this product")
         return redirect("/")
     product.quntity+=1
     product.save()
@@ -289,6 +313,7 @@ def incrementProductQuntity(request:HttpRequest,p_id):
 def dicrementProductQuntity(request:HttpRequest,p_id):
     product=Product.objects.get(id=p_id)
     if request.user.username!=product.cart.owner.user.username:
+        messages.error(request=request, message="you are not owner of this product")
         return redirect("/")
     if product.quntity!=0:
         product.cart.total_prize-=product.prize
@@ -336,6 +361,7 @@ def addToCart(request:HttpRequest,p_id):
         cart=userCart,
     )
     userCartProduct.save()
+    messages.success(request=request, message=str(product.name)+" added to cart sucsessfully")
     print(userCart)
     return redirect('/')
 
@@ -343,6 +369,7 @@ def addToCart(request:HttpRequest,p_id):
 def addProductPage(request:HttpRequest):
     cmsUser=CMSUser.objects.get(user=request.user)
     if cmsUser.role_ID !=3:
+        messages.error(request=request, message="You not have acsess to this page")
         return redirect("/")
     if request.POST:
         try:
@@ -356,7 +383,10 @@ def addProductPage(request:HttpRequest):
             )
             print(cms_product.name)
             cms_product.save()
+            messages.success(request=request, message="Product added sucsessfully")
+
         except Exception as e:
+            messages.error(request=request, message="error while adding product "+ str(e.args))
             print(e)
     context={
         "roleId":CMSUser.objects.get(user=request.user).role_ID,
@@ -371,6 +401,7 @@ def updateProfile(request:HttpRequest):
             print(post)
             user=User.objects.get(username=post.get("name"))
             if user.username!=request.user.username:
+                messages.error(request=request, message="you not have acsses to this page ")
                 print("not have asses")
                 return redirect("/profile")
 
@@ -382,8 +413,12 @@ def updateProfile(request:HttpRequest):
             cmsUser.contect_number=post.get("phone")
             cmsUser.user.save()
             cmsUser.save()
+            messages.success(request=request, message="Profile updateted Sucsessfully")
+
+
 
     except Exception as e:
+        messages.error(request=request, message="error wile updateting profile "+str(e.args))
         print(e)
     return redirect("/profile")
 
@@ -408,6 +443,7 @@ def profile(request:HttpRequest):
 @login_required(login_url="/login",redirect_field_name="logout")
 def logout(request:HttpRequest):
     auth.logout(request=request)
+    messages.success(request=request, message="You have Logout sucsessfully ")
     return redirect('/login')
 
 def login(request:HttpRequest):
@@ -422,13 +458,15 @@ def login(request:HttpRequest):
             
             if user:
                 auth.login(request=request,user=user)
+                messages.success(request=request, message="You have login sucsessfully ")
                 return redirect("/")
-            context["massage"]="Fail to login user user not found "
+            messages.error(request=request, message="Fail to login user user not found")
 
         except Exception as e:
             print(e)
-            context["massage"]="Fail to login user"
+            messages.error(request=request, message="Fail to login user")
     print(context)
+    print(messages.get_level(request=request))
     return render(request,"login.html",context=context)
 
 def register(request:HttpRequest):
@@ -461,11 +499,11 @@ def register(request:HttpRequest):
                     email=email
                 )
                 cms_user.save()
-
+                messages.success(request=request, message="Account created sucsessfully ")
                 return redirect("/")
             except Exception as e :
                 print(e.args)
-                context["massage"]="Fail to create user"
+                messages.error(request=request, message="Fail to create Account ")
     print(context)
                 
     return render(request,"register.html",context=context)

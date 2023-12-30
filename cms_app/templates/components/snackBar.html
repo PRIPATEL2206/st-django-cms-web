@@ -1,0 +1,69 @@
+<style>
+    .snackBar {
+        position: absolute;
+        top: 30px;
+        z-index: 100;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 50%;
+        background-color: rgb(189 189 0);
+        margin-left: 25%;
+        margin-right: 25%;
+        padding: 15px 25px;
+        border-radius: 15px;
+        opacity: .95;
+    }
+    .success{
+        background-color: #197619;
+    }
+    .error{
+        background-color: #c90d06;
+    }
+    .warning .debug .info{
+        background-color: rgb(189 189 0);
+    }
+
+    .snackBarText {
+        font-size: 17px;
+        color: white;
+        opacity: .9;
+
+    }
+
+    .closeBtn {
+        font-size: 20px;
+        color: white;
+        cursor: pointer;
+        padding: 5px 3px;
+        border-radius: 5px;
+    }
+
+    .closeBtn:hover {
+        background-color: white;
+    }
+</style>
+
+<div class="snackBar {{text.tags}}">
+    <h4 class="snackBarText ">{{text}}</h4>
+    <button id="closeBtn" class="closeBtn">
+        ❌
+    </button>
+</div>
+
+<script>
+    let copyClose=closeBtn
+    function removeSnackBar(e) {
+        if (closeBtn==null)
+        return;
+        if (e.parentElement == undefined)
+            e.target.parentElement.remove();
+        else
+            e.parentElement.remove();
+        copyClose=null
+
+    }
+    setTimeout(() => copyClose? removeSnackBar(copyClose):null, 2000);
+    closeBtn.onclick = removeSnackBar;
+
+</script>
