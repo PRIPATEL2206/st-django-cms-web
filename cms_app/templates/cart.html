@@ -13,8 +13,8 @@
             {% for product in products %}
             <li class="cart-item">
                 <div class="action-btns">
-                    <a href="/removeFromCart/{{ product.id }}">
-                        <button class="remove-btn">
+                    <a href="{% url 'removeFromCart' product.id %}">
+                        <button class="remove-btn" >
                             <img src="{% static 'images/icons/cross.svg' %}" alt="x">
                         </button>
                     </a>
@@ -33,9 +33,9 @@
                     <h1 class="title-3xl">{{ product.name }}</h1>
                 </div>
                 <div class="cart-quantity">
-                    <a href="/cart/dicrementProductQuntity/{{product.id}}"> <button class="increament">-</button></a>
+                    <a href="{% url 'dicrementProductQuntity' product.id %}"> <button class="increament">-</button></a>
                     <span>{{ product.quntity }}</span>
-                    <a href="/cart/incrementProductQuntity/{{product.id}}"><button class="increament">+</button></a>
+                    <a href="{% url 'incrementProductQuntity' product.id %}"><button class="increament">+</button></a>
                 </div>
                 <span class="cart-price">
                     &#8377; {{ product.prize }}
@@ -47,7 +47,7 @@
                 <h2 class="title-3xl">Total Amount</h2>
                 <div class="stack">
                     <div class="cart-price">&#8377; {{ cart.total_prize }}</div>
-                    <a href="buyCart/{{cart.id}}" class="link-bg">Buy Now</a>
+                    <a href="{% url 'buyCart' cart.id %}" class="link-bg">Buy Now</a>
                 </div>
             </li>
         </ul>

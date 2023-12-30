@@ -7,11 +7,12 @@ from django.contrib import auth,messages
 from django.contrib.auth.decorators import login_required
 from cms_app.models import CMSUser, Cart, Order, Product
 from cms_app.models import ROLES
+from .utils import send_email_to_users
 
 @login_required(login_url="/login",redirect_field_name="home")
 def index(request:HttpRequest):
+    # send_email_to_users()
     cmsUser=CMSUser.objects.get(user=request.user)
-
     products=Product.objects.filter(isCopy=False),
     numberOfProductPerPage=12
 
@@ -451,9 +452,8 @@ def login(request:HttpRequest):
     if request.POST:
         try:
             print(request.POST)
-            email=request.POST.get('email')
+            username=request.POST.get('username')
             password=request.POST.get('password')
-            username=CMSUser.objects.get(email=email).user.username
             user= auth.authenticate(request=request, username=username,password=password)
             
             if user:

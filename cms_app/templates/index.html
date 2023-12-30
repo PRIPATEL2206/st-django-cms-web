@@ -22,7 +22,7 @@
                             <h2 class="title-3xl">{{ product.name }}</h2>
                             <p class="paragraph-sm">{{ product.discription }}</p>
                             <span class="price">&#8377; {{ product.prize }}</span>
-                            <a class="cart" href='addToCart/{{product.id}}'> <button class="link-bg cart">Add to
+                            <a class="cart" href="{% url 'addToCart' product.id %} "> <button class="link-bg cart">Add to
                                     Cart</button></a>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                             <h2 class="title-3xl">{{ product.name }}</h2>
                             <p class="paragraph-sm">{{ product.discription }}</p>
                             <span class="price">&#8377; {{ product.prize }}</span>
-                            <a class="cart" href='addToCart/{{product.id}}'> <button class="link-bg cart">Add to Cart</button></a>
+                            <a class="cart" href="{% url 'addToCart' product.id %}"> <button class="link-bg cart">Add to Cart</button></a>
                         </div>
                     </div>
                     {% endfor %}

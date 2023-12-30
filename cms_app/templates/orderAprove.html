@@ -11,7 +11,7 @@
         <h1 class="title-5xl">All Orders</h1>
         <ul class="orders-details">
             {% for order in orders %}   
-            <a href="{{order.order.id}}" class="order-link">
+            <a href=" {% url 'orderAprovePage' order.order.id %} " class="order-link">
                 <li class="order-detail-item">
                     <div class="user-details details-box">
                         <h2 class="title-2xl">User Details</h2>

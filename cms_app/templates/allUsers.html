@@ -15,7 +15,7 @@
                 {% for users in pages %}
                 <div class="user-card-wrapper swiper-slide">
                     {% for user in users %}
-                    <a href="/user/{{user.id}}" class="user-link">
+                    <a href="{% url 'user' user.id %}" class="user-link">
                         <div class="user-card">
                             <span class="user-id">{{user.id}}</span>
                             <figure class="card-figure">
