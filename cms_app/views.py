@@ -11,7 +11,6 @@ from .utils import send_email_to_users
 
 @login_required(login_url="/login",redirect_field_name="home")
 def index(request:HttpRequest):
-    # send_email_to_users()
     cmsUser=CMSUser.objects.get(user=request.user)
     products=Product.objects.filter(isCopy=False),
     numberOfProductPerPage=12
@@ -177,6 +176,16 @@ def buyCart(request:HttpRequest,c_id):
         )
         order.save()
         messages.success(request=request, message="place order sucsessfully")
+        send_email_to_users(
+            subject="Order Place Sucsessfuly",
+            massage=f"your order is plased sucsessfuly \nyour order id is \" {order.id} \" \nOrder will be sheeped to address {order.address} \nCurent status : {order.status} \nTotal Prize : {order.total_prize} \n\n\n please fill free to contect us on {order.validator_employee.contect_number} ",
+            to=[order.buyer.email]
+        )
+        send_email_to_users(
+            subject="New order is comes",
+            massage=f"New order is comes with order id \" {order.id} \" check it out to your account \ncustomer contect number : {order.buyer.contect_number}",
+            to=[order.validator_employee.email]
+        )
     else:
         messages.error(request=request, message="you not have acsses to this page ")
 
