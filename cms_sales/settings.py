@@ -28,7 +28,10 @@ SECRET_KEY = 'django-insecure-io^$z_(7^5lnkv(v0wr+c3-e$fh(y4kak%0o-5o^4arh3rnwa^
 # DEBUG = False if os.environ.get("DEBUG")!=None else True
 DEBUG =True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+"cms-django-app.onrender.com"
+]
+
 
 
 # Application definition
