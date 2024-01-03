@@ -30,8 +30,8 @@ DEBUG =True
 
 ALLOWED_HOSTS = [
 "cms-django-app.onrender.com",
-"127.0.0.1",
 ]
+
 
 
 
