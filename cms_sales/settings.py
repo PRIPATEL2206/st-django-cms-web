@@ -138,7 +138,7 @@ STATIC_URL = '/static/'
 STORAGES = {
 # …
 "staticfiles": {
-"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+"BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
 },
 }
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
