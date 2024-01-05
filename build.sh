@@ -3,6 +3,7 @@
 set -o errexit
 
 pip install -r requirements.txt
+pip install psycopg2
 pip install gunicorn
 
 python manage.py collectstatic --no-input
