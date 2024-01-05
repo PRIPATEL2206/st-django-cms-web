@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block 'cssBlock' %}
-{% endblock 'cssBlock' %}
+{% block 'cssBlock' %}{% endblock 'cssBlock' %}
+{% block 'title' %} User Detail {% endblock 'title' %}
+
 {% block 'body' %}
 
 <!-- content start -->
@@ -20,7 +21,7 @@
                 </figure>
                 <div class="avatar-input-container">
                     <label for="img"> <img src="{% static 'images/icons/uplaod.svg' %}" alt="">Upload</label>
-                    <input type="file" name="img" id="img" class="profile-img-input">
+                    <input type="file" name="img" id="img"  class="profile-img-input" accept="image/*">
                 </div>
             </div>
             <div class="profile-info">

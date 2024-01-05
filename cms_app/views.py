@@ -19,9 +19,6 @@ def index(request:HttpRequest):
         "pages":products[i:i+numberOfProductPerPage] for i in range(0,len(products),numberOfProductPerPage)
     }
     context["roleId"]=cmsUser.role_ID
-    print(messages.get_level(request=request))
-    # for msg in messages:
-    # print(context["pages"][0][0])
     return render(request=request,template_name="index.html",context=context)
 
 @login_required(login_url="/login",redirect_field_name="admin")
@@ -89,7 +86,6 @@ def dashBord(request:HttpRequest):
         "yearlySalse":yearlySalse,
         "monthlySalse":monthlySalse
     }
-    print(context)
         
     return render(request=request,template_name="dashBord.html",context=context)
 
@@ -113,9 +109,6 @@ def allUsersPage(request:HttpRequest):
         messages.error(request=request, message="you not have acsses to this page ")
         return redirect("/")
     users=CMSUser.objects.all()
-    for user in users:
-        print(user.profile_img)
-    print("okE")
     context={
         "roleId":CMSUser.objects.get(user=request.user).role_ID,
         "pages":[users[i:i+12] for i in range(0,len(users),12)]
@@ -135,7 +128,6 @@ def addEmployee(request:HttpRequest):
         user=User.objects.create_user(
             username=userName,email=post.get("Email"),password=password
         )
-        print(userName)
         cms_user=CMSUser(
             user=user,
             address=post.get("Address"),
@@ -264,7 +256,6 @@ def orderAprovePage(request:HttpRequest,o_id):
         "order":order,
         "products":Product.objects.filter(cart=order.cart,isCopy=True),
     }
-    print(context)
     return render(request=request,template_name="orderAprovePage.html",context=context)
 
 @login_required(login_url="/login",redirect_field_name="OrderToAprove")
@@ -290,8 +281,6 @@ def myOrders(request:HttpRequest):
         "roleId":CMSUser.objects.get(user=request.user).role_ID,
         "orders":[{"order":order,"products":Product.objects.filter(cart=order.cart)} for order in orders][::-1]
     }
-
-    print(len(context["orders"]))
     return render(request=request,template_name="myOrder.html",context=context)
 
 @login_required(login_url="/login",redirect_field_name="home")
@@ -303,7 +292,6 @@ def removeFromCart(request:HttpRequest,p_id):
     pro.cart.total_prize-=pro.prize*pro.quntity
     pro.cart.save()
     pro.delete()
-    print(pro)
     messages.success(request=request, message=str(pro.name)+" remove from cart sucsessfully")
     return redirect("/cart")
 
@@ -346,7 +334,6 @@ def cartPage(request:HttpRequest):
         "cart":userCart,
         "products":Product.objects.filter(cart=userCart,isCopy=True)[::-1]
     }
-    # print(context)
     return render(request=request,template_name="cart.html",context=context)
 
 @login_required(login_url="/login",redirect_field_name="home")
@@ -372,7 +359,6 @@ def addToCart(request:HttpRequest,p_id):
     )
     userCartProduct.save()
     messages.success(request=request, message=str(product.name)+" added to cart sucsessfully")
-    print(userCart)
     return redirect('/')
 
 @login_required(login_url="/login",redirect_field_name="addProduct")
@@ -391,13 +377,11 @@ def addProductPage(request:HttpRequest):
                 discription=post.get("desc"),
                 isCopy=False,
             )
-            print(cms_product.name)
             cms_product.save()
             messages.success(request=request, message="Product added sucsessfully")
 
         except Exception as e:
             messages.error(request=request, message="error while adding product "+ str(e.args))
-            print(e)
     context={
         "roleId":CMSUser.objects.get(user=request.user).role_ID,
     }
@@ -408,11 +392,9 @@ def updateProfile(request:HttpRequest):
     try:
         if request.POST:
             post=request.POST
-            print(post)
             user=User.objects.get(username=post.get("name"))
             if user.username!=request.user.username:
                 messages.error(request=request, message="you not have acsses to this page ")
-                print("not have asses")
                 return redirect("/profile")
 
             cmsUser=CMSUser.objects.get(user=user)
@@ -429,14 +411,12 @@ def updateProfile(request:HttpRequest):
 
     except Exception as e:
         messages.error(request=request, message="error wile updateting profile "+str(e.args))
-        print(e)
     return redirect("/profile")
 
 @login_required(redirect_field_name="profile",login_url="/login")
 def profile(request:HttpRequest):
     user=request.user
     cmsUser=CMSUser.objects.get(user=user)
-    print(cmsUser.user.username)
     context={
         "userName":cmsUser.user.username,
         "email":cmsUser.user.email,
@@ -460,7 +440,6 @@ def login(request:HttpRequest):
     context={}
     if request.POST:
         try:
-            print(request.POST)
             username=request.POST.get('username')
             password=request.POST.get('password')
             user= auth.authenticate(request=request, username=username,password=password)
@@ -472,10 +451,7 @@ def login(request:HttpRequest):
             messages.error(request=request, message="Fail to login user user not found")
 
         except Exception as e:
-            print(e)
             messages.error(request=request, message="Fail to login user")
-    print(context)
-    print(messages.get_level(request=request))
     return render(request,"login.html",context=context)
 
 def register(request:HttpRequest):
@@ -487,17 +463,14 @@ def register(request:HttpRequest):
         if password2==password:
             try:
                 user_name=request.POST.get('name')
-                print(user_name)
                 email=request.POST.get('Email')
                 address=request.POST.get('Address')
                 phone=request.POST.get("phone")
                 photo=request.FILES.get("img")
 
-
                 User.objects.create_user(username=user_name,email=email,password=password)
                 user= auth.authenticate( request= request,username=user_name,password=password)
                 auth.login(request=request,user=user)
-                print(email)
                 cms_user=CMSUser(
                     user=user,
                     address=address,
@@ -511,8 +484,5 @@ def register(request:HttpRequest):
                 messages.success(request=request, message="Account created sucsessfully ")
                 return redirect("/")
             except Exception as e :
-                print(e.args)
-                messages.error(request=request, message="Fail to create Account ")
-    print(context)
-                
+                messages.error(request=request, message="Fail to create Account ")                
     return render(request,"register.html",context=context)

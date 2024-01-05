@@ -6,7 +6,7 @@
     <base href="{% static '/' %}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Register</title>
 
     <!-- styles -->
     <link rel="stylesheet" as="preload" href="{% static 'dist/index.css' %}">
@@ -34,11 +34,11 @@
                         {% csrf_token %}
                         <div class="profile-avatar">
                             <figure class="profile-figure">
-                                <img src="{% static 'images/icons/user.svg' %}" alt="" class="profile-img" accept="image/*" >
+                                <img src="{% static 'images/icons/user.svg' %}" alt="" class="profile-img" >
                             </figure>
                             <div class="avatar-input-container">
                                 <label for="img"> <img src="{% static 'images/icons/uplaod.svg' %}" alt="">Upload</label>
-                                <input type="file" name="img" id="img" class="profile-img-input">
+                                <input type="file" name="img" id="img" class="profile-img-input" accept="image/*" >
                             </div>
                         </div>
                         <div class="profile-info">

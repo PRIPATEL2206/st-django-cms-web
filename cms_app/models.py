@@ -15,7 +15,6 @@ ROLES={
 BASE_BALANCE=10000
 
 def upload_user_path(instance,filename) -> str:
-    print(instance)
     return os.path.join('user_images/',uuid1().hex+filename)
 
 def upload_product_path(instance,filename) -> str:

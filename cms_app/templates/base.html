@@ -84,7 +84,7 @@
 
         </ul> -->
         <ul class="hamb-list">
-            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'home' %}" class="link">Home</a>
             {% if roleId == 3 %}
             <a href="{% url 'dashBord' %}" class="link">Dashbord</a>
             <a href="{% url 'addProduct' %}" class="link">Add Product</a>
@@ -99,9 +99,6 @@
             {% endif %}
             <a href="{% url 'cart' %}" class="link link-with-img">Cart <img src="{% static 'images/icons/cart.svg' %}"
                     alt=""></a>
-            <!-- <a href="/login.html" class="link link-with-img">
-                Sign In <img src="./assets/images/icons/right-arrow.svg" alt="arrow" class="icon">
-            </a> -->
             <a href="{% url 'profile' %}" class="link link-with-img profile-link">
                 <figure> <img src="{% static 'images/icons/user.svg' %}" alt=""> </figure> Profile
             </a>

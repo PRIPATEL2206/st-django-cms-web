@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block 'cssBlock' %}
-{% endblock 'cssBlock' %}
+{% block 'cssBlock' %}{% endblock 'cssBlock' %}
+{% block 'title' %} My Orders {% endblock 'title' %}
+
 {% block 'body' %}
 
 <!-- content start -->
@@ -81,5 +82,5 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
 <!-- inner scripts -->
-<script src="./js/profile.js"></script>
+<script src="{% static 'js/profile.js' %}"></script>
 {% endblock 'jsBlock' %}
