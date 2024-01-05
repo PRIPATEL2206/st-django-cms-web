@@ -15,7 +15,7 @@ from pathlib import Path
 import dj_database_url
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG') if os.environ.get('DEBUG') else True
+DEBUG = False if os.environ.get('DEBUG')=='False' else True
 if DEBUG:
     from .env.env import CMS_ENV
 
