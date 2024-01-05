@@ -8,3 +8,8 @@ pip install gunicorn
 
 python manage.py collectstatic --no-input
 python manage.py migrate
+
+if [[ $CREATE_SUPERUSER ]];
+then
+  python cms_sales/manage.py createsuperuser --no-input
+fi
