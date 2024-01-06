@@ -15,8 +15,9 @@ from pathlib import Path
 import dj_database_url
 
 # SECURITY WARNING: don't run with debug turned on in production!
+SERVER_NAME=os.environ.get('RENDER_SERVER') if os.environ.get('RENDER_SERVER')else None
 DEBUG = False if os.environ.get('DEBUG')=='False' else True
-if DEBUG:
+if DEBUG and SERVER_NAME!="RENDER":
     from .env.env import CMS_ENV
 
 
