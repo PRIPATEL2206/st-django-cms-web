@@ -101,7 +101,7 @@ DATABASES = {
             'NAME': 'db.sqlite3',
         }
     }
-if not DEBUG:
+if not DEBUG or SERVER_NAME=='RENDER':
     DATABASES = {'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))}
 
 
