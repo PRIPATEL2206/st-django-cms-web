@@ -1,10 +1,14 @@
+from collections.abc import Iterable
 from email.policy import default
+from io import BytesIO
 import os
+import sys
 from typing import Any
 from uuid import uuid1
 from django.db import models
 from django.contrib.auth.models import User
-from django.forms import SelectDateWidget
+from PIL import Image
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 ROLES={
     1:"customer",
@@ -20,6 +24,22 @@ def upload_user_path(instance,filename) -> str:
 def upload_product_path(instance,filename) -> str:
     return os.path.join('product_images/',uuid1().hex+filename)
 
+def resize_img(img):
+        im = Image.open(img)
+
+        output = BytesIO()
+
+        # Resize/modify the image
+        im = im.resize((200, 200))
+
+        # after modifications, save it to the output
+        im.save(output, format='JPEG', quality=90)
+        output.seek(0)
+
+        # change the imagefield value to be the newley modifed image value
+        return InMemoryUploadedFile(output, 'ImageField', "%s.jpg" % img.name.split('.')[0], 'image/jpeg',
+                                      sys.getsizeof(output), None)
+
 class CMSUser(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     email=models.EmailField()
@@ -30,6 +50,9 @@ class CMSUser(models.Model):
     balance=models.BigIntegerField(default=BASE_BALANCE)
     profile_img=models.ImageField(upload_to=upload_user_path,null=True)
 
+    def save(self):
+        self.profile_img = resize_img(self.profile_img)
+        super(CMSUser,self).save()
 
 
 class Cart(models.Model):
@@ -61,8 +84,12 @@ class Product(models.Model):
     quntity=models.PositiveSmallIntegerField(default=0)
     cart=models.ForeignKey(Cart,on_delete=models.CASCADE,default=None,null=True)
     added_datetime=models.DateTimeField(auto_now_add=True)
-    def __str__(self) -> str:
 
+    def save(self):
+        self.img = resize_img(self.img)
+        super(Product,self).save()
+
+    def __str__(self) -> str:
         return self.name
 
     
