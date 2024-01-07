@@ -25,6 +25,8 @@ def upload_product_path(instance,filename) -> str:
     return os.path.join('product_images/',uuid1().hex+filename)
 
 def resize_img(img):
+        if not img:
+            return img
         im = Image.open(img)
 
         output = BytesIO()
