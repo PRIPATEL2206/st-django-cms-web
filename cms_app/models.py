@@ -30,7 +30,7 @@ def resize_img(img):
         output = BytesIO()
 
         # Resize/modify the image
-        im = im.resize((200, 200))
+        im = im.resize((500, 500))
 
         # after modifications, save it to the output
         im.save(output, format='JPEG', quality=90)
